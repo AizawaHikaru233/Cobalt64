@@ -1,0 +1,92 @@
+{
+ "IOGraphicsAccelerator2": {
+  "size": 3544,
+  "source": "measured: __ZN22IOGraphicsAccelerator29MetaClassC1Ev @000000000003a1d7, __ZN22IOGraphicsAccelerator29MetaClassC2Ev @000000000003a26f movl $0xdd8,%ecx (IOAcceleratorFamily2, x86_64); reference agrees: refs/nvidia-macos-driver/kexts/NVRM/accel/re/IOGraphicsAccelerator2.h kIOGraphicsAccelerator2Size [0xdd8]",
+  "confidence": "measured"
+ },
+ "IOAccelEventMachine2": {
+  "size": 240,
+  "source": "measured: __ZN20IOAccelEventMachine29MetaClassC1Ev @0000000000011eb9, __ZN20IOAccelEventMachine29MetaClassC2Ev @0000000000011f2d movl $0xf0,%ecx (IOAcceleratorFamily2, x86_64); reference agrees: refs/nvidia-macos-driver/kexts/NVRM/accel/iofam/IOAccelEventMachine2.h kIOAccelEventMachine2Size [0xf0]",
+  "confidence": "measured"
+ },
+ "IOAccelEventMachineFast2": {
+  "size": 3376,
+  "source": "measured: __ZN24IOAccelEventMachineFast29MetaClassC1Ev @000000000002fe81, __ZN24IOAccelEventMachineFast29MetaClassC2Ev @000000000002fef5 movl $0xd30,%ecx (IOAcceleratorFamily2, x86_64); reference agrees: refs/nvidia-macos-driver/kexts/NVRM/accel/iofam/IOAccelEventMachineFast2.h kIOAccelEventMachineFast2Size [0xd30]",
+  "confidence": "measured"
+ },
+ "IOAccelTask": {
+  "size": 600,
+  "source": "measured: __ZN11IOAccelTask9MetaClassC1Ev @0000000000038ba5, __ZN11IOAccelTask9MetaClassC2Ev @0000000000038c83 movl $0x258,%ecx (IOAcceleratorFamily2, x86_64); reference agrees: refs/nvidia-macos-driver/kexts/NVRM/accel/iofam/IOAccelTask.h kIOAccelTaskSize [0x258]",
+  "confidence": "measured"
+ },
+ "IOAccelDisplayMachine": {
+  "size": 376,
+  "source": "measured: __ZN21IOAccelDisplayMachine9MetaClassC1Ev @000000000000daff, __ZN21IOAccelDisplayMachine9MetaClassC2Ev @000000000000db73 movl $0x178,%ecx (IOAcceleratorFamily2, x86_64); reference agrees: refs/nvidia-macos-driver/kexts/NVRM/accel/iofam/IOAccelDisplayMachine.h kIOAccelDisplayMachineSize [0x178]",
+  "confidence": "measured"
+ },
+ "IOAccelSysMemory": {
+  "size": 408,
+  "source": "measured: __ZN16IOAccelSysMemory9MetaClassC1Ev @0000000000053cb9, __ZN16IOAccelSysMemory9MetaClassC2Ev @0000000000053d97 movl $0x198,%ecx (IOAcceleratorFamily2, x86_64); reference agrees: refs/nvidia-macos-driver/kexts/NVRM/accel/iofam/IOAccelSysMemory.h kIOAccelSysMemorySize [0x198]",
+  "confidence": "measured"
+ },
+ "IOAccelVidMemory": {
+  "size": 272,
+  "source": "measured: __ZN16IOAccelVidMemory9MetaClassC1Ev @0000000000055941, __ZN16IOAccelVidMemory9MetaClassC2Ev @00000000000559b5 movl $0x110,%ecx (IOAcceleratorFamily2, x86_64); reference agrees: refs/nvidia-macos-driver/kexts/NVRM/accel/iofam/IOAccelVidMemory.h kIOAccelVidMemorySize [0x110]",
+  "confidence": "measured"
+ },
+ "IOAccelResource2": {
+  "size": 384,
+  "source": "measured: __ZN16IOAccelResource29MetaClassC1Ev @000000000002101b, __ZN16IOAccelResource29MetaClassC2Ev @000000000002108f movl $0x180,%ecx (IOAcceleratorFamily2, x86_64); reference agrees: refs/nvidia-macos-driver/kexts/NVRM/accel/iofam/IOAccelResource2.h kIOAccelResource2Size [0x180]",
+  "confidence": "measured"
+ },
+ "IOAccel2DContext2": {
+  "size": 4352,
+  "source": "measured: __ZN17IOAccel2DContext29MetaClassC1Ev @0000000000002a69, __ZN17IOAccel2DContext29MetaClassC2Ev @0000000000002add movl $0x1100,%ecx (IOAcceleratorFamily2, x86_64); reference agrees: refs/nvidia-macos-driver/kexts/NVRM/accel/iofam/IOAccel2DContext2.h kIOAccel2DContext2Size [0x1100]",
+  "confidence": "measured"
+ },
+ "IOAccelSharedUserClient2": {
+  "size": 360,
+  "source": "measured: __ZN24IOAccelSharedUserClient29MetaClassC1Ev @000000000002adf5, __ZN24IOAccelSharedUserClient29MetaClassC2Ev @000000000002aed3 movl $0x168,%ecx (IOAcceleratorFamily2, x86_64); reference agrees: refs/nvidia-macos-driver/kexts/NVRM/accel/re/IOAccelSharedUserClient2.h kIOAccelSharedUserClient2Size [0x168]",
+  "confidence": "measured"
+ },
+ "IOAccelCommandQueue": {
+  "size": 1704,
+  "source": "measured: __ZN19IOAccelCommandQueue9MetaClassC1Ev @00000000000442cb, __ZN19IOAccelCommandQueue9MetaClassC2Ev @00000000000443a9 movl $0x6a8,%ecx (IOAcceleratorFamily2, x86_64); IOGraphicsAccelerator2::newCommandQueue @000000000003e9ec movl $0x6a8,%edi (operator new) agrees",
+  "confidence": "measured"
+ },
+ "IOAccelDisplayPipe": {
+  "size": 792,
+  "source": "measured: __ZN18IOAccelDisplayPipe9MetaClassC1Ev @00000000000490f7, __ZN18IOAccelDisplayPipe9MetaClassC2Ev @00000000000491d5 movl $0x318,%ecx (IOAcceleratorFamily2, x86_64); reference agrees: refs/nvidia-macos-driver/kexts/NVRM/accel/iofam/IOAccelDisplayPipe.h kIOAccelDisplayPipeSize [0x318]",
+  "confidence": "measured"
+ },
+ "IOAccelMemoryMap": {
+  "size": 280,
+  "source": "measured: __ZN16IOAccelMemoryMap9MetaClassC1Ev @0000000000052077, __ZN16IOAccelMemoryMap9MetaClassC2Ev @00000000000520eb movl $0x118,%ecx (IOAcceleratorFamily2, x86_64); reference agrees: refs/nvidia-macos-driver/kexts/NVRM/accel/iofam/IOAccelMemoryMap.h kIOAccelMemoryMapSize [0x118]",
+  "confidence": "measured"
+ },
+ "IOFramebuffer": {
+  "size": 464,
+  "source": "measured: __ZN13IOFramebuffer9MetaClassC1Ev @000000000000be55, __ZN13IOFramebuffer9MetaClassC2Ev @000000000000bec9 movl $0x1d0,%ecx (IOGraphicsFamily, x86_64); reference agrees: navi48accel/gates/leaves.py (0.0.4 M5: \"IOFramebuffer (IOGraphicsFamily, 350 slots, size 0x1d0, 8 pure)\") [0x1d0]",
+  "confidence": "measured"
+ },
+ "IOAccelMemory": {
+  "size": 176,
+  "source": "measured: __ZN13IOAccelMemory9MetaClassC1Ev @0000000000001c47, __ZN13IOAccelMemory9MetaClassC2Ev @0000000000001cbb movl $0xb0,%ecx (IOAcceleratorFamily2, x86_64); reference agrees: refs/nvidia-macos-driver/kexts/NVRM/accel/iofam/IOAccelMemory.h kIOAccelMemorySize [0xb0]",
+  "confidence": "measured"
+ },
+ "IOAccelContext2": {
+  "size": 4264,
+  "source": "measured: __ZN15IOAccelContext29MetaClassC1Ev @0000000000006687, __ZN15IOAccelContext29MetaClassC2Ev @0000000000006765 movl $0x10a8,%ecx (IOAcceleratorFamily2, x86_64); reference agrees: refs/nvidia-macos-driver/kexts/NVRM/accel/iofam/IOAccelContext2.h kIOAccelContext2Size [0x10a8]",
+  "confidence": "measured"
+ },
+ "IOAccelSubmitter2": {
+  "size": 1384,
+  "source": "measured: __ZN17IOAccelSubmitter29MetaClassC1Ev @0000000000018333, __ZN17IOAccelSubmitter29MetaClassC2Ev @00000000000183a7 movl $0x568,%ecx (IOAcceleratorFamily2, x86_64); reference agrees: refs/nvidia-macos-driver/kexts/NVRM/accel/iofam/IOAccelSubmitter2.h kIOAccelSubmitter2Size [0x568]",
+  "confidence": "measured"
+ },
+ "IOAccelerator": {
+  "size": 136,
+  "source": "measured: __ZN13IOAccelerator9MetaClassC1Ev @0000000000024b61, __ZN13IOAccelerator9MetaClassC2Ev @0000000000024c3f movl $0x88,%ecx (IOGraphicsFamily, x86_64); reference agrees: refs/nvidia-macos-driver/kexts/NVRM/accel/re/IOAccelerator.h kIOAcceleratorSize = 136 (read from the kernel OSMetaClass registry) [0x88]",
+  "confidence": "measured"
+ }
+}

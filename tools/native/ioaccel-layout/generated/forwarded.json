@@ -1,0 +1,78 @@
+{
+ "IOGraphicsAccelerator2": [
+  209,
+  268,
+  269
+ ],
+ "IOAccelEventMachine2": [
+  70
+ ],
+ "IOAccelEventMachineFast2": [
+  70
+ ],
+ "IOAccelSysMemory": [
+  36,
+  45,
+  46
+ ],
+ "IOAccelVidMemory": [
+  36,
+  45,
+  46
+ ],
+ "IOAccelResource2": [
+  3,
+  54,
+  55,
+  56,
+  57,
+  59
+ ],
+ "IOAccel2DContext2": [
+  300,
+  301,
+  302,
+  304,
+  308,
+  315,
+  324,
+  335,
+  336,
+  341,
+  342
+ ],
+ "IOAccelCommandQueue": [
+  300,
+  301,
+  302,
+  303,
+  305,
+  335,
+  336
+ ],
+ "IOAccelMemoryMap": [
+  36,
+  45
+ ],
+ "IOAccelMemory": [
+  36
+ ],
+ "IOAccelContext2": [
+  300,
+  301,
+  302,
+  304,
+  308,
+  315,
+  324,
+  335,
+  336,
+  341,
+  342
+ ],
+ "IOAccelSubmitter2": [
+  304,
+  308,
+  315
+ ]
+}

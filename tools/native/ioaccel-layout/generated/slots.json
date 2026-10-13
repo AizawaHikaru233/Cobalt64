@@ -1,0 +1,5239 @@
+{
+ "classes": {
+  "IOGraphicsAccelerator2": {
+   "super": "IOAccelerator",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOGraphicsAccelerator2",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOGraphicsAccelerator2",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "18": {
+     "kind": "real",
+     "name": "free",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "96": {
+     "kind": "real",
+     "name": "setProperties",
+     "args": "OSObject*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "127": {
+     "kind": "real",
+     "name": "requestTerminate",
+     "args": "IOService*, unsigned int",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "129": {
+     "kind": "real",
+     "name": "didTerminate",
+     "args": "IOService*, unsigned int, bool*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "133": {
+     "kind": "real",
+     "name": "configureReport",
+     "args": "IOReportChannelList*, unsigned int, void*, void*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "134": {
+     "kind": "real",
+     "name": "updateReport",
+     "args": "IOReportChannelList*, unsigned int, void*, void*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "184": {
+     "kind": "real",
+     "name": "start",
+     "args": "IOService*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "185": {
+     "kind": "real",
+     "name": "stop",
+     "args": "IOService*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "192": {
+     "kind": "real",
+     "name": "terminate",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "193": {
+     "kind": "real",
+     "name": "finalize",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "209": {
+     "kind": "real",
+     "name": "getWorkLoop",
+     "args": "",
+     "cv": " const",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "229": {
+     "kind": "real",
+     "name": "requestProbe",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "230": {
+     "kind": "real",
+     "name": "message",
+     "args": "unsigned int, IOService*, void*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "239": {
+     "kind": "real",
+     "name": "newUserClient",
+     "args": "task*, void*, unsigned int, IOUserClient**",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "266": {
+     "kind": "real",
+     "name": "acceleratorDidLock",
+     "args": "char const*, int",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "267": {
+     "kind": "real",
+     "name": "acceleratorWillUnlock",
+     "args": "char const*, int",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "268": {
+     "kind": "real",
+     "name": "tmpTotalVRAM",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "269": {
+     "kind": "real",
+     "name": "totalTextureMemory",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "270": {
+     "kind": "real",
+     "name": "isIdle",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "271": {
+     "kind": "real",
+     "name": "getStampMemory",
+     "args": "unsigned int*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "272": {
+     "kind": "real",
+     "name": "createEventMachine",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "273": {
+     "kind": "real",
+     "name": "newEventMachine",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "274": {
+     "kind": "real",
+     "name": "newClientSharedRO",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "275": {
+     "kind": "real",
+     "name": "newClientSharedRW",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "276": {
+     "kind": "real",
+     "name": "deleteClientSharedRO",
+     "args": "IOAccelClientSharedRO*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "277": {
+     "kind": "real",
+     "name": "deleteClientSharedRW",
+     "args": "IOAccelClientSharedRW*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "278": {
+     "kind": "real",
+     "name": "createShared",
+     "args": "task*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "279": {
+     "kind": "real",
+     "name": "createSysMemory",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "280": {
+     "kind": "real",
+     "name": "createVidMemory",
+     "args": "IOAccelShared2*, IOAccelResource2*, unsigned long long, void*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "281": {
+     "kind": "real",
+     "name": "createMemoryMap",
+     "args": "IOAccelTask*, IOAccelMemory*, unsigned int",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "282": {
+     "kind": "real",
+     "name": "createResource",
+     "args": "IOAccelShared2*, unsigned int",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "283": {
+     "kind": "real",
+     "name": "createCommandDescriptor",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "284": {
+     "kind": "real",
+     "name": "deleteCommandDescriptor",
+     "args": "IOAccelCommandDescriptor*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "285": {
+     "kind": "real",
+     "name": "newBlockFence",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "286": {
+     "kind": "real",
+     "name": "scrubEvents",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "287": {
+     "kind": "real",
+     "name": "createDrawable",
+     "args": "IOAccelSurface*, IOAccelShared2*, bool",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "288": {
+     "kind": "real",
+     "name": "resourceTypeForIOSurface",
+     "args": "IOSurface*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "289": {
+     "kind": "real",
+     "name": "createDisplayPipe",
+     "args": "IOFramebuffer*, unsigned int",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "290": {
+     "kind": "real",
+     "name": "createMemoryDescriptorWithAddressRange",
+     "args": "unsigned long long, unsigned long long, unsigned int, task*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "291": {
+     "kind": "real",
+     "name": "createMemoryDescriptorWithPersistentMemoryDescriptor",
+     "args": "IOMemoryDescriptor*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "292": {
+     "kind": "real",
+     "name": "createBufferMemoryDescriptorWithOptions",
+     "args": "unsigned int, unsigned long, unsigned long",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "293": {
+     "kind": "real",
+     "name": "createBufferMemoryDescriptorInTaskWithOptions",
+     "args": "task*, unsigned int, unsigned long, unsigned long",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "294": {
+     "kind": "real",
+     "name": "freeAllGPUMappings",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "295": {
+     "kind": "real",
+     "name": "freeWaitToPrepareVidMemory",
+     "args": "IOAccelVidMemory*, bool, bool",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "296": {
+     "kind": "real",
+     "name": "freeWaitToPrepareVidMap",
+     "args": "IOAccelMemoryMap*, bool, bool",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "297": {
+     "kind": "real",
+     "name": "unwireAllVidMemory",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "298": {
+     "kind": "real",
+     "name": "freeAllVidMemoryMappings",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "299": {
+     "kind": "real",
+     "name": "pageoffSurfaceInLinear",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "300": {
+     "kind": "real",
+     "name": "freeWaitToPrepareSysMemory",
+     "args": "IOAccelSysMemory*, bool",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "301": {
+     "kind": "real",
+     "name": "freeWaitToPrepareSysMap",
+     "args": "IOAccelMemoryMap*, bool",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "302": {
+     "kind": "real",
+     "name": "collectGartWirings",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "303": {
+     "kind": "real",
+     "name": "unwireAllSysMemory",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "304": {
+     "kind": "real",
+     "name": "freeAllSysMemoryMappings",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "305": {
+     "kind": "real",
+     "name": "getMaxSingleSysMemorySize",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "306": {
+     "kind": "real",
+     "name": "getMaxWiredSysMemorySize",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "307": {
+     "kind": "real",
+     "name": "createUserGPUTask",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "308": {
+     "kind": "real",
+     "name": "acceleratorFinalize",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "309": {
+     "kind": "real",
+     "name": "submitSwapCopy",
+     "args": "IOAccelEvent*, IOAccelResource2*, IOAccelResource2*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "310": {
+     "kind": "real",
+     "name": "populateAccelConfig",
+     "args": "IOAccelConfig*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "311": {
+     "kind": "real",
+     "name": "calcMaxGPUPhysicalMemoryBytes",
+     "args": "unsigned long long",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "312": {
+     "kind": "real",
+     "name": "configureDevice",
+     "args": "IOPCIDevice*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "313": {
+     "kind": "real",
+     "name": "teardownDevice",
+     "args": "IOPCIDevice*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "314": {
+     "kind": "real",
+     "name": "createKernelGPUTask",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "315": {
+     "kind": "real",
+     "name": "systemWillSleep",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "316": {
+     "kind": "real",
+     "name": "systemDidWake",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "317": {
+     "kind": "real",
+     "name": "systemWillChangeSpeed",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "318": {
+     "kind": "real",
+     "name": "systemDidChangeSpeed",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "319": {
+     "kind": "real",
+     "name": "configIsHeadless",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "320": {
+     "kind": "real",
+     "name": "newDisplayMachine",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "321": {
+     "kind": "real",
+     "name": "newShared",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "322": {
+     "kind": "real",
+     "name": "newSharedUserClient",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "323": {
+     "kind": "real",
+     "name": "newDevice",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "324": {
+     "kind": "real",
+     "name": "newGLContext",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "325": {
+     "kind": "real",
+     "name": "newCLContext",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "326": {
+     "kind": "real",
+     "name": "newSurface",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "327": {
+     "kind": "real",
+     "name": "new2DContext",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "328": {
+     "kind": "real",
+     "name": "newVideoContext",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "329": {
+     "kind": "real",
+     "name": "newDisplayPipe",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "330": {
+     "kind": "real",
+     "name": "newDrawable",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "331": {
+     "kind": "real",
+     "name": "newContext",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "332": {
+     "kind": "real",
+     "name": "newSysMemory",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "333": {
+     "kind": "real",
+     "name": "newVidMemory",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "334": {
+     "kind": "real",
+     "name": "newResource",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "335": {
+     "kind": "real",
+     "name": "newCommandDescriptor",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "336": {
+     "kind": "real",
+     "name": "newStatistics",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "337": {
+     "kind": "real",
+     "name": "newMemoryMap",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "338": {
+     "kind": "real",
+     "name": "getMaxResourceSize",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "339": {
+     "kind": "real",
+     "name": "newRemoteMemory",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "340": {
+     "kind": "real",
+     "name": "createRemoteMemory",
+     "args": "IOAccelShared2*, unsigned long long, unsigned int, unsigned int",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "341": {
+     "kind": "real",
+     "name": "newContextEventFence",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "342": {
+     "kind": "real",
+     "name": "createIODMACommand",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "343": {
+     "kind": "real",
+     "name": "triage",
+     "args": "char**, unsigned long long*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "344": {
+     "kind": "real",
+     "name": "_RESERVEDIOGraphicsAccelerator3",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "345": {
+     "kind": "real",
+     "name": "_RESERVEDIOGraphicsAccelerator4",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "346": {
+     "kind": "real",
+     "name": "_RESERVEDIOGraphicsAccelerator5",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "347": {
+     "kind": "real",
+     "name": "describeDriverAllocations",
+     "args": "IOAccelAllocationInfo*",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "348": {
+     "kind": "real",
+     "name": "newCommandQueue",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    },
+    "349": {
+     "kind": "real",
+     "name": "ktraceStateChanged",
+     "args": "",
+     "cv": "",
+     "owner": "IOGraphicsAccelerator2"
+    }
+   }
+  },
+  "IOAccelEventMachine2": {
+   "super": "OSObject",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOAccelEventMachine2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOAccelEventMachine2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelEventMachine2"
+    },
+    "18": {
+     "kind": "real",
+     "name": "free",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "35": {
+     "kind": "real",
+     "name": "init",
+     "args": "IOGraphicsAccelerator2*, unsigned int, int",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "36": {
+     "kind": "real",
+     "name": "getClientTestEventFunc",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "37": {
+     "kind": "real",
+     "name": "getNumStamps",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "38": {
+     "kind": "real",
+     "name": "setStampBaseAddress",
+     "args": "unsigned int volatile*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "39": {
+     "kind": "real",
+     "name": "getStampOffset",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "40": {
+     "kind": "real",
+     "name": "initEvent",
+     "args": "IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "41": {
+     "kind": "real",
+     "name": "cleanEvent",
+     "args": "IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "42": {
+     "kind": "real",
+     "name": "finishStamp",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "43": {
+     "kind": "real",
+     "name": "finishAllStamps",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "44": {
+     "kind": "real",
+     "name": "testStamp",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "45": {
+     "kind": "real",
+     "name": "testAllStamps",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "46": {
+     "kind": "real",
+     "name": "testAllStampsUnlocked",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "47": {
+     "kind": "real",
+     "name": "finishEventUnlocked",
+     "args": "IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "48": {
+     "kind": "real",
+     "name": "testEventUnlocked",
+     "args": "IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "49": {
+     "kind": "real",
+     "name": "finishEvent",
+     "args": "IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "50": {
+     "kind": "real",
+     "name": "testEvent",
+     "args": "IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "51": {
+     "kind": "real",
+     "name": "finishEventExcluding",
+     "args": "IOAccelEvent*, int",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "52": {
+     "kind": "real",
+     "name": "testEventExcluding",
+     "args": "IOAccelEvent*, int",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "53": {
+     "kind": "real",
+     "name": "moveEvent",
+     "args": "IOAccelEvent*, IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "54": {
+     "kind": "real",
+     "name": "copyEvent",
+     "args": "IOAccelEvent*, IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "55": {
+     "kind": "real",
+     "name": "mergeEvent",
+     "args": "IOAccelEvent*, IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "56": {
+     "kind": "real",
+     "name": "copyEventExcluding",
+     "args": "IOAccelEvent*, IOAccelEvent*, int",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "57": {
+     "kind": "real",
+     "name": "mergeEventExcluding",
+     "args": "IOAccelEvent*, IOAccelEvent*, int",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "58": {
+     "kind": "real",
+     "name": "setEventStamp",
+     "args": "int, IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "59": {
+     "kind": "real",
+     "name": "incrementStamp",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "60": {
+     "kind": "real",
+     "name": "writeStampCommand",
+     "args": "int, IOAccelEventQueue*, vendevtCommandRec*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "61": {
+     "kind": "real",
+     "name": "writeEventStampCommand",
+     "args": "int, IOAccelEventQueue*, IOAccelEvent*, vendevtCommandRec*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "62": {
+     "kind": "real",
+     "name": "writeEventBarrierCommand",
+     "args": "IOAccelEventQueue*, IOAccelEvent*, vendevtBarrierRec*, int",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "63": {
+     "kind": "real",
+     "name": "logCommandSubmission",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "64": {
+     "kind": "real",
+     "name": "stampIsIncremented",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "65": {
+     "kind": "real",
+     "name": "getStamp",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "66": {
+     "kind": "real",
+     "name": "checkGPUProgress",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "67": {
+     "kind": "real",
+     "name": "checkChannelProgress",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "68": {
+     "kind": "real",
+     "name": "eventTimeout",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "69": {
+     "kind": "real",
+     "name": "signalStamp",
+     "args": "int, unsigned int",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "70": {
+     "kind": "real",
+     "name": "collectAllLiveEventIfNeeded",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "71": {
+     "kind": "real",
+     "name": "waitForStamp",
+     "args": "int, unsigned int, unsigned int*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "72": {
+     "kind": "real",
+     "name": "enableStampInterrupt",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "73": {
+     "kind": "real",
+     "name": "disableStampInterrupt",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "74": {
+     "kind": "real",
+     "name": "deviceTerminatedUnlocked",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "75": {
+     "kind": "real",
+     "name": "enableEventStampInterrupts",
+     "args": "IOAccelEvent const*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "76": {
+     "kind": "real",
+     "name": "disableEventStampInterrupts",
+     "args": "IOAccelEvent const*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "77": {
+     "kind": "real",
+     "name": "stop",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "78": {
+     "kind": "real",
+     "name": "scrubEvent",
+     "args": "IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "79": {
+     "kind": "real",
+     "name": "triage",
+     "args": "char**, unsigned long long*",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "80": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelEventMachine2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "81": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelEventMachine3",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "82": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelEventMachine4",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    },
+    "83": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelEventMachine5",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachine2"
+    }
+   }
+  },
+  "IOAccelEventMachineFast2": {
+   "super": "IOAccelEventMachine2",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOAccelEventMachineFast2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOAccelEventMachineFast2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "18": {
+     "kind": "real",
+     "name": "free",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "35": {
+     "kind": "real",
+     "name": "init",
+     "args": "IOGraphicsAccelerator2*, unsigned int, int",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "36": {
+     "kind": "real",
+     "name": "getClientTestEventFunc",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "40": {
+     "kind": "real",
+     "name": "initEvent",
+     "args": "IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "41": {
+     "kind": "real",
+     "name": "cleanEvent",
+     "args": "IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "42": {
+     "kind": "real",
+     "name": "finishStamp",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "43": {
+     "kind": "real",
+     "name": "finishAllStamps",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "44": {
+     "kind": "real",
+     "name": "testStamp",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "45": {
+     "kind": "real",
+     "name": "testAllStamps",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "46": {
+     "kind": "real",
+     "name": "testAllStampsUnlocked",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "47": {
+     "kind": "real",
+     "name": "finishEventUnlocked",
+     "args": "IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "48": {
+     "kind": "real",
+     "name": "testEventUnlocked",
+     "args": "IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "49": {
+     "kind": "real",
+     "name": "finishEvent",
+     "args": "IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "50": {
+     "kind": "real",
+     "name": "testEvent",
+     "args": "IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "51": {
+     "kind": "real",
+     "name": "finishEventExcluding",
+     "args": "IOAccelEvent*, int",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "52": {
+     "kind": "real",
+     "name": "testEventExcluding",
+     "args": "IOAccelEvent*, int",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "53": {
+     "kind": "real",
+     "name": "moveEvent",
+     "args": "IOAccelEvent*, IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "54": {
+     "kind": "real",
+     "name": "copyEvent",
+     "args": "IOAccelEvent*, IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "55": {
+     "kind": "real",
+     "name": "mergeEvent",
+     "args": "IOAccelEvent*, IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "56": {
+     "kind": "real",
+     "name": "copyEventExcluding",
+     "args": "IOAccelEvent*, IOAccelEvent*, int",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "57": {
+     "kind": "real",
+     "name": "mergeEventExcluding",
+     "args": "IOAccelEvent*, IOAccelEvent*, int",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "58": {
+     "kind": "real",
+     "name": "setEventStamp",
+     "args": "int, IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "59": {
+     "kind": "real",
+     "name": "incrementStamp",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "60": {
+     "kind": "real",
+     "name": "writeStampCommand",
+     "args": "int, IOAccelEventQueue*, vendevtCommandRec*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "61": {
+     "kind": "real",
+     "name": "writeEventStampCommand",
+     "args": "int, IOAccelEventQueue*, IOAccelEvent*, vendevtCommandRec*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "62": {
+     "kind": "real",
+     "name": "writeEventBarrierCommand",
+     "args": "IOAccelEventQueue*, IOAccelEvent*, vendevtBarrierRec*, int",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "63": {
+     "kind": "real",
+     "name": "logCommandSubmission",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "64": {
+     "kind": "real",
+     "name": "stampIsIncremented",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "65": {
+     "kind": "real",
+     "name": "getStamp",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "66": {
+     "kind": "real",
+     "name": "checkGPUProgress",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "67": {
+     "kind": "real",
+     "name": "checkChannelProgress",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "68": {
+     "kind": "real",
+     "name": "eventTimeout",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "74": {
+     "kind": "real",
+     "name": "deviceTerminatedUnlocked",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "75": {
+     "kind": "real",
+     "name": "enableEventStampInterrupts",
+     "args": "IOAccelEvent const*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "76": {
+     "kind": "real",
+     "name": "disableEventStampInterrupts",
+     "args": "IOAccelEvent const*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "78": {
+     "kind": "real",
+     "name": "scrubEvent",
+     "args": "IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "79": {
+     "kind": "real",
+     "name": "triage",
+     "args": "char**, unsigned long long*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "84": {
+     "kind": "real",
+     "name": "writeStamp",
+     "args": "int, vendevtCommandRec*, unsigned int",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "85": {
+     "kind": "real",
+     "name": "prepareBarrier",
+     "args": "vendevtBarrierRec*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "86": {
+     "kind": "real",
+     "name": "completeBarrier",
+     "args": "vendevtBarrierRec*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "87": {
+     "kind": "real",
+     "name": "writeBarrierElement",
+     "args": "vendevtBarrierRec*, int, unsigned int",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "88": {
+     "kind": "real",
+     "name": "waitForAnyStamp",
+     "args": "IOAccelEvent*, int*",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "89": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelEventMachineFast0",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "90": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelEventMachineFast1",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "91": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelEventMachineFast2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "92": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelEventMachineFast3",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "93": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelEventMachineFast4",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    },
+    "94": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelEventMachineFast5",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelEventMachineFast2"
+    }
+   }
+  },
+  "IOAccelTask": {
+   "super": "OSObject",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOAccelTask",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOAccelTask",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "5": {
+     "kind": "real",
+     "name": "release",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelTask"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelTask"
+    },
+    "18": {
+     "kind": "real",
+     "name": "free",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "35": {
+     "kind": "real",
+     "name": "init",
+     "args": "IOGraphicsAccelerator2*, unsigned int, IORangeAllocator**",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "36": {
+     "kind": "real",
+     "name": "freeToAllocGPUAddress",
+     "args": "IOAccelMemoryMap*",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "37": {
+     "kind": "real",
+     "name": "freeAllGPUMappings",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "38": {
+     "kind": "real",
+     "name": "freeAllSysMemoryMappings",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "39": {
+     "kind": "real",
+     "name": "freeAllVidMemoryMappings",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "40": {
+     "kind": "real",
+     "name": "allocate",
+     "args": "IOAccelMemoryMap const*",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "41": {
+     "kind": "real",
+     "name": "deallocate",
+     "args": "IOAccelMemoryMap const*, unsigned long long",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "42": {
+     "kind": "real",
+     "name": "reserve",
+     "args": "unsigned int, unsigned long long, unsigned long long",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "43": {
+     "kind": "real",
+     "name": "describeDriverAllocations",
+     "args": "IOAccelAllocationInfo*",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "44": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelTask0",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "45": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelTask1",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "46": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelTask2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "47": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelTask3",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "48": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelTask4",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "49": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelTask5",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelTask"
+    },
+    "50": {
+     "kind": "real",
+     "name": "freeWaitToAllocGPUAddress",
+     "args": "IOAccelMemoryMap*, bool",
+     "cv": "",
+     "owner": "IOAccelTask"
+    }
+   }
+  },
+  "IOAccelDisplayMachine": {
+   "super": "IOService",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOAccelDisplayMachine",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOAccelDisplayMachine",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "18": {
+     "kind": "real",
+     "name": "free",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "266": {
+     "kind": "real",
+     "name": "init",
+     "args": "IOGraphicsAccelerator2*",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "267": {
+     "kind": "real",
+     "name": "start",
+     "args": "IOPCIDevice*",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "268": {
+     "kind": "real",
+     "name": "stop",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "269": {
+     "kind": "real",
+     "name": "displayModeWillChange",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "270": {
+     "kind": "real",
+     "name": "displayModeDidChange",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "271": {
+     "kind": "real",
+     "name": "initFramebufferResource",
+     "args": "unsigned int, unsigned int, IOFramebuffer*, IOAccelResource2*",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "272": {
+     "kind": "real",
+     "name": "destroyFramebufferResource",
+     "args": "unsigned int, unsigned int, IOFramebuffer*, IOAccelResource2*",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "273": {
+     "kind": "real",
+     "name": "triage",
+     "args": "char**, unsigned long long*",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "274": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelDisplayMachine1",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "275": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelDisplayMachine2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "276": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelDisplayMachine3",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "277": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelDisplayMachine4",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "278": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelDisplayMachine5",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "279": {
+     "kind": "real",
+     "name": "framebuffer_will_power_off",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "280": {
+     "kind": "real",
+     "name": "framebuffer_did_power_on",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "281": {
+     "kind": "real",
+     "name": "display_mode_will_change",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "282": {
+     "kind": "real",
+     "name": "display_mode_did_change",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    },
+    "283": {
+     "kind": "real",
+     "name": "found_framebuffer",
+     "args": "IOFramebuffer*",
+     "cv": "",
+     "owner": "IOAccelDisplayMachine"
+    }
+   }
+  },
+  "IOAccelSysMemory": {
+   "super": "IOAccelMemory",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOAccelSysMemory",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOAccelSysMemory",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelSysMemory"
+    },
+    "18": {
+     "kind": "real",
+     "name": "free",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "35": {
+     "kind": "real",
+     "name": "init",
+     "args": "IOGraphicsAccelerator2*",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "37": {
+     "kind": "real",
+     "name": "getDirtySize",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelSysMemory"
+    },
+    "38": {
+     "kind": "real",
+     "name": "getResidentSize",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelSysMemory"
+    },
+    "42": {
+     "kind": "real",
+     "name": "complete",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "43": {
+     "kind": "real",
+     "name": "getPhysicalSegment",
+     "args": "unsigned long long, unsigned long long*",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "44": {
+     "kind": "real",
+     "name": "setPurgeable",
+     "args": "unsigned int, unsigned int*",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "45": {
+     "kind": "real",
+     "name": "setTag",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "46": {
+     "kind": "real",
+     "name": "getTag",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "47": {
+     "kind": "real",
+     "name": "matchForReuse",
+     "args": "void*, unsigned long long",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "54": {
+     "kind": "real",
+     "name": "wire",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "55": {
+     "kind": "real",
+     "name": "unwire",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "56": {
+     "kind": "real",
+     "name": "orphanIt",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "57": {
+     "kind": "real",
+     "name": "unorphanIt",
+     "args": "IOAccelShared2*",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "58": {
+     "kind": "real",
+     "name": "increment_wire_count",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "59": {
+     "kind": "real",
+     "name": "decrement_wire_count",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "60": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSysMemory0",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "61": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSysMemory1",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "62": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSysMemory2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "63": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSysMemory3",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "64": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSysMemory4",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "65": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSysMemory5",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSysMemory"
+    },
+    "36": {
+     "kind": "real",
+     "name": "getLength",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelSysMemory"
+    }
+   }
+  },
+  "IOAccelVidMemory": {
+   "super": "IOAccelMemory",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOAccelVidMemory",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOAccelVidMemory",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelVidMemory"
+    },
+    "18": {
+     "kind": "real",
+     "name": "free",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "37": {
+     "kind": "real",
+     "name": "getDirtySize",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelVidMemory"
+    },
+    "38": {
+     "kind": "real",
+     "name": "getResidentSize",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelVidMemory"
+    },
+    "41": {
+     "kind": "real",
+     "name": "prepare",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "42": {
+     "kind": "real",
+     "name": "complete",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "43": {
+     "kind": "real",
+     "name": "getPhysicalSegment",
+     "args": "unsigned long long, unsigned long long*",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "44": {
+     "kind": "real",
+     "name": "setPurgeable",
+     "args": "unsigned int, unsigned int*",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "45": {
+     "kind": "real",
+     "name": "setTag",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "46": {
+     "kind": "real",
+     "name": "getTag",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "47": {
+     "kind": "real",
+     "name": "matchForReuse",
+     "args": "void*, unsigned long long",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "54": {
+     "kind": "real",
+     "name": "wire",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "55": {
+     "kind": "real",
+     "name": "unwire",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "56": {
+     "kind": "real",
+     "name": "orphanIt",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "57": {
+     "kind": "real",
+     "name": "unorphanIt",
+     "args": "IOAccelShared2*",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "58": {
+     "kind": "real",
+     "name": "increment_wire_count",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "59": {
+     "kind": "real",
+     "name": "decrement_wire_count",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "60": {
+     "kind": "real",
+     "name": "init",
+     "args": "IOGraphicsAccelerator2*, IOAccelShared2*, IOAccelResource2*, unsigned long long, void*",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "61": {
+     "kind": "real",
+     "name": "allocPhysical",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "62": {
+     "kind": "real",
+     "name": "deallocPhysical",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "63": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelVidMemory0",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "64": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelVidMemory1",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "65": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelVidMemory2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "66": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelVidMemory3",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "67": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelVidMemory4",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "68": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelVidMemory5",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelVidMemory"
+    },
+    "36": {
+     "kind": "real",
+     "name": "getLength",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelVidMemory"
+    }
+   }
+  },
+  "IOAccelResource2": {
+   "super": "OSObject",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOAccelResource2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOAccelResource2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "3": {
+     "kind": "real",
+     "name": "getRetainCount",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelResource2"
+    },
+    "4": {
+     "kind": "real",
+     "name": "retain",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelResource2"
+    },
+    "5": {
+     "kind": "real",
+     "name": "release",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelResource2"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelResource2"
+    },
+    "18": {
+     "kind": "real",
+     "name": "free",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "35": {
+     "kind": "real",
+     "name": "initSurfaceBuffer",
+     "args": "IOAccelSurface*, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "36": {
+     "kind": "real",
+     "name": "allocMemory",
+     "args": "IOAccelShared2*",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "37": {
+     "kind": "real",
+     "name": "allocDataBufferMemory",
+     "args": "IOAccelShared2*, bool, unsigned int",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "38": {
+     "kind": "real",
+     "name": "allocFallbackMemory",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "39": {
+     "kind": "real",
+     "name": "init",
+     "args": "IOGraphicsAccelerator2*, IOAccelShared2*, unsigned int",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "40": {
+     "kind": "real",
+     "name": "initialize",
+     "args": "IOAccelNewResourceArgs*, unsigned long long",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "41": {
+     "kind": "real",
+     "name": "initClientShared",
+     "args": "IOAccelClientSharedRO*, IOAccelClientSharedRW*",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "42": {
+     "kind": "real",
+     "name": "termClientShared",
+     "args": "IOAccelClientSharedRO*, IOAccelClientSharedRW*",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "43": {
+     "kind": "real",
+     "name": "copyResourcePrivate",
+     "args": "IOAccelResourcePrivate*",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "44": {
+     "kind": "real",
+     "name": "sharedRelease",
+     "args": "IOAccelShared2*",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "45": {
+     "kind": "real",
+     "name": "dirtyLevel",
+     "args": "unsigned int, unsigned int",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "46": {
+     "kind": "real",
+     "name": "prepare",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "47": {
+     "kind": "real",
+     "name": "complete",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "48": {
+     "kind": "real",
+     "name": "load",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "49": {
+     "kind": "real",
+     "name": "unload",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "50": {
+     "kind": "real",
+     "name": "addToChannel",
+     "args": "IOAccelChannel2*, unsigned int",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "51": {
+     "kind": "real",
+     "name": "removeFromChannel",
+     "args": "IOAccelChannel2*",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "52": {
+     "kind": "real",
+     "name": "fallback",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "53": {
+     "kind": "real",
+     "name": "getResourceInfo",
+     "args": "IOAccelGetResourceInfoReturnData*, unsigned int*",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "54": {
+     "kind": "real",
+     "name": "pageon",
+     "args": "IOAccelEvent*, bool",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "55": {
+     "kind": "real",
+     "name": "pageon",
+     "args": "IOAccelEvent*, bool, unsigned long long",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "56": {
+     "kind": "real",
+     "name": "pageoff",
+     "args": "IOAccelEvent*, bool, bool*",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "57": {
+     "kind": "real",
+     "name": "pageoff",
+     "args": "IOAccelEvent*, bool, bool*, unsigned long long",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "58": {
+     "kind": "real",
+     "name": "rebuildPagingBuffer",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "59": {
+     "kind": "real",
+     "name": "getMemoryAllocParameter",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "60": {
+     "kind": "real",
+     "name": "getLevelOffset",
+     "args": "unsigned char, unsigned char, int*",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "61": {
+     "kind": "real",
+     "name": "getBackingLevelOffset",
+     "args": "unsigned char, unsigned char, int*",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "62": {
+     "kind": "real",
+     "name": "calculateIOSurfaceDeviceCacheVRAMBytes",
+     "args": "unsigned long long*, unsigned long long*",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "63": {
+     "kind": "real",
+     "name": "addToAperture",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "64": {
+     "kind": "real",
+     "name": "removeFromAperture",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "65": {
+     "kind": "real",
+     "name": "getApertureMemoryDescriptor",
+     "args": "unsigned long long*",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "66": {
+     "kind": "real",
+     "name": "dirtyFaceLevels",
+     "args": "unsigned int, unsigned int",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "67": {
+     "kind": "real",
+     "name": "dirtyBufferRange",
+     "args": "unsigned int, unsigned int",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "68": {
+     "kind": "real",
+     "name": "zeroVidMemory",
+     "args": "IOAccelEvent*, unsigned long long",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "69": {
+     "kind": "real",
+     "name": "scrubEvents",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "70": {
+     "kind": "real",
+     "name": "dirtyBufferRange",
+     "args": "unsigned long long, unsigned long long",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "71": {
+     "kind": "real",
+     "name": "dirtyVendorCommand",
+     "args": "unsigned int, unsigned long long",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "72": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelResource2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "73": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelResource3",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "74": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelResource4",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "75": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelResource5",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "76": {
+     "kind": "real",
+     "name": "pageoffIfNeeded",
+     "args": "unsigned int, unsigned int",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "77": {
+     "kind": "real",
+     "name": "pageonIfNeeded",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    },
+    "78": {
+     "kind": "real",
+     "name": "gartEvent",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelResource2"
+    }
+   }
+  },
+  "IOAccel2DContext2": {
+   "super": "IOAccelContext2",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOAccel2DContext2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOAccel2DContext2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccel2DContext2"
+    },
+    "296": {
+     "kind": "real",
+     "name": "getTargetAndMethodForIndex",
+     "args": "IOService**, unsigned int",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "316": {
+     "kind": "real",
+     "name": "contextStart",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "317": {
+     "kind": "real",
+     "name": "contextStop",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "352": {
+     "kind": "real",
+     "name": "getSurfaceReqBits",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccel2DContext2"
+    },
+    "356": {
+     "kind": "real",
+     "name": "allowsExclusiveMode",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccel2DContext2"
+    },
+    "360": {
+     "kind": "real",
+     "name": "blitCopy",
+     "args": "IOAccelEvent*, IOAccelResource2*, IOAccelResource2*, IOAccel2DBlitRectStruc*, unsigned int",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "361": {
+     "kind": "real",
+     "name": "blitFill",
+     "args": "IOAccelEvent*, unsigned int, IOAccelResource2*, IOAccel2DBlitRectStruc*, unsigned int",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "362": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccel2DContext0",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "363": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccel2DContext1",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "364": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccel2DContext2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "365": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccel2DContext3",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "366": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccel2DContext4",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "367": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccel2DContext5",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "300": {
+     "kind": "real",
+     "name": "getOwningTask",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccel2DContext2"
+    },
+    "301": {
+     "kind": "real",
+     "name": "getGPUTask",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccel2DContext2"
+    },
+    "302": {
+     "kind": "real",
+     "name": "getOwningTaskPid",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccel2DContext2"
+    },
+    "304": {
+     "kind": "real",
+     "name": "retireCommandBuffer",
+     "args": "IOAccelEventFence*",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "308": {
+     "kind": "real",
+     "name": "setSubmissionError",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "315": {
+     "kind": "real",
+     "name": "isOpportunisticWorkload",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccel2DContext2"
+    },
+    "324": {
+     "kind": "real",
+     "name": "postTokenSanityCheck",
+     "args": "IOAccelCommandStreamInfo&",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "335": {
+     "kind": "real",
+     "name": "getDataBufferPrivate",
+     "args": "IOAccelResource2*, IOAccelResourcePrivate*, unsigned long long",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "336": {
+     "kind": "real",
+     "name": "validateDataBuffer",
+     "args": "unsigned long long, IOBufferMemoryDescriptor*, IOAccelResource2*",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "341": {
+     "kind": "real",
+     "name": "invalidate",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    },
+    "342": {
+     "kind": "real",
+     "name": "getFrameDelimiter",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccel2DContext2"
+    }
+   }
+  },
+  "IOAccelSharedUserClient2": {
+   "super": "IOUserClient",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOAccelSharedUserClient2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOAccelSharedUserClient2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "18": {
+     "kind": "real",
+     "name": "free",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "127": {
+     "kind": "real",
+     "name": "requestTerminate",
+     "args": "IOService*, unsigned int",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "129": {
+     "kind": "real",
+     "name": "didTerminate",
+     "args": "IOService*, unsigned int, bool*",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "184": {
+     "kind": "real",
+     "name": "start",
+     "args": "IOService*",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "185": {
+     "kind": "real",
+     "name": "stop",
+     "args": "IOService*",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "266": {
+     "kind": "real",
+     "name": "externalMethod",
+     "args": "unsigned int, IOExternalMethodArguments*, IOExternalMethodDispatch*, OSObject*, void*",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "286": {
+     "kind": "real",
+     "name": "clientClose",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "291": {
+     "kind": "real",
+     "name": "connectClient",
+     "args": "IOUserClient*",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "296": {
+     "kind": "real",
+     "name": "getTargetAndMethodForIndex",
+     "args": "IOService**, unsigned int",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "300": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSharedUserClient0",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "301": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSharedUserClient1",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "302": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSharedUserClient2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "303": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSharedUserClient3",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "304": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSharedUserClient4",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "305": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSharedUserClient5",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "306": {
+     "kind": "real",
+     "name": "sharedStart",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    },
+    "307": {
+     "kind": "real",
+     "name": "sharedStop",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSharedUserClient2"
+    }
+   }
+  },
+  "IOAccelCommandQueue": {
+   "super": "IOAccelSubmitter2",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOAccelCommandQueue",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOAccelCommandQueue",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelCommandQueue"
+    },
+    "18": {
+     "kind": "real",
+     "name": "free",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "184": {
+     "kind": "real",
+     "name": "start",
+     "args": "IOService*",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "185": {
+     "kind": "real",
+     "name": "stop",
+     "args": "IOService*",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "193": {
+     "kind": "real",
+     "name": "finalize",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "206": {
+     "kind": "real",
+     "name": "attach",
+     "args": "IOService*",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "266": {
+     "kind": "real",
+     "name": "externalMethod",
+     "args": "unsigned int, IOExternalMethodArguments*, IOExternalMethodDispatch*, OSObject*, void*",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "286": {
+     "kind": "real",
+     "name": "clientClose",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "291": {
+     "kind": "real",
+     "name": "connectClient",
+     "args": "IOUserClient*",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "300": {
+     "kind": "real",
+     "name": "getOwningTask",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelCommandQueue"
+    },
+    "301": {
+     "kind": "real",
+     "name": "getGPUTask",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelCommandQueue"
+    },
+    "302": {
+     "kind": "real",
+     "name": "getOwningTaskPid",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelCommandQueue"
+    },
+    "303": {
+     "kind": "real",
+     "name": "affectedByHardwareReset",
+     "args": "bool, unsigned int",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "304": {
+     "kind": "real",
+     "name": "retireCommandBuffer",
+     "args": "IOAccelEventFence*",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "305": {
+     "kind": "real",
+     "name": "shouldHardwareCommandNooped",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "308": {
+     "kind": "real",
+     "name": "setSubmissionError",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "315": {
+     "kind": "real",
+     "name": "isOpportunisticWorkload",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelCommandQueue"
+    },
+    "316": {
+     "kind": "real",
+     "name": "commandQueueStart",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "317": {
+     "kind": "real",
+     "name": "commandQueueStop",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "318": {
+     "kind": "real",
+     "name": "parseSegmentList",
+     "args": "IOAccelShared2*, IOAccelSegmentResourceListHeader const*",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "319": {
+     "kind": "real",
+     "name": "processSegment",
+     "args": "IOAccelSegmentResourceList*, IOAccelKernelCommand const*, IOAccelKernelCommand const*",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "320": {
+     "kind": "real",
+     "name": "processSegmentKernelCommands",
+     "args": "IOAccelSegmentResourceList*, IOAccelKernelCommand const*, IOAccelKernelCommand const*",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "321": {
+     "kind": "real",
+     "name": "processSegmentKernelCommand",
+     "args": "IOAccelSegmentResourceList*, IOAccelKernelCommand const*, IOAccelKernelCommand const*",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "322": {
+     "kind": "real",
+     "name": "beginCoalescedSegment",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "323": {
+     "kind": "real",
+     "name": "endCoalescedSegment",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "324": {
+     "kind": "real",
+     "name": "processCommandBuffer",
+     "args": "unsigned int, unsigned int",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "325": {
+     "kind": "real",
+     "name": "setPriority",
+     "args": "eIOAccelCommandQueuePriority",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "326": {
+     "kind": "real",
+     "name": "parseSegmentList",
+     "args": "IOAccelShared2*, IOAccelSegmentResourceListHeader const*, IOAccelDeviceShmem*",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "327": {
+     "kind": "real",
+     "name": "processKernelCommands",
+     "args": "IOAccelKernelCommand const*, IOAccelKernelCommand const*",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "328": {
+     "kind": "real",
+     "name": "processKernelCommand",
+     "args": "IOAccelKernelCommand const*, IOAccelKernelCommand const*",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "329": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelCommandQueue0",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "330": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelCommandQueue1",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "331": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelCommandQueue2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "332": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelCommandQueue3",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "333": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelCommandQueue4",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "334": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelCommandQueue5",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "335": {
+     "kind": "real",
+     "name": "canSubmitCommandBuffer",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    },
+    "336": {
+     "kind": "real",
+     "name": "pauseSubmitCommandBuffer",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelCommandQueue"
+    }
+   }
+  },
+  "IOAccelDisplayPipe": {
+   "super": "IOService",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOAccelDisplayPipe",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOAccelDisplayPipe",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "18": {
+     "kind": "real",
+     "name": "free",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "266": {
+     "kind": "real",
+     "name": "init",
+     "args": "IOGraphicsAccelerator2*, IOAccelDisplayMachine*, IOFramebuffer*, unsigned int",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "267": {
+     "kind": "real",
+     "name": "initFramebufferResource",
+     "args": "unsigned int, IOAccelResource2*",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "268": {
+     "kind": "real",
+     "name": "destroyFramebufferResource",
+     "args": "unsigned int, IOAccelResource2*",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "269": {
+     "kind": "real",
+     "name": "displayModeWillChange",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "270": {
+     "kind": "real",
+     "name": "displayModeDidChange",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "271": {
+     "kind": "real",
+     "name": "enableVBLInterrupt",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "272": {
+     "kind": "real",
+     "name": "disableVBLInterrupt",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "273": {
+     "kind": "real",
+     "name": "enableTransactionInterrupt",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "274": {
+     "kind": "real",
+     "name": "disableTransactionInterrupt",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "275": {
+     "kind": "real",
+     "name": "newDisplayPipeTransaction",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "276": {
+     "kind": "real",
+     "name": "validateTransaction",
+     "args": "IOAccelDisplayPipeTransaction2*",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "277": {
+     "kind": "real",
+     "name": "performTransaction",
+     "args": "IOAccelDisplayPipeTransaction2*",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "278": {
+     "kind": "real",
+     "name": "isTransactionComplete",
+     "args": "IOAccelDisplayPipeTransaction2*",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "279": {
+     "kind": "real",
+     "name": "submitTransaction",
+     "args": "IOAccelDisplayPipeTransaction2*",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "280": {
+     "kind": "real",
+     "name": "getDisplayModePipeScalerSetup",
+     "args": "IOAccelDisplayPipeScaler*",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "281": {
+     "kind": "real",
+     "name": "createWorkLoop",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "282": {
+     "kind": "real",
+     "name": "copyCapabilities",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "283": {
+     "kind": "real",
+     "name": "beginTransaction",
+     "args": "IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "284": {
+     "kind": "real",
+     "name": "signalTransactionComplete",
+     "args": "IOAccelEvent*",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "285": {
+     "kind": "real",
+     "name": "framebufferTerminated",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "286": {
+     "kind": "real",
+     "name": "wsaaEnterDefer",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "287": {
+     "kind": "real",
+     "name": "wsaaWillExitDefer",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "288": {
+     "kind": "real",
+     "name": "wsaaDidExitDefer",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "289": {
+     "kind": "real",
+     "name": "wsaaWillEnterDefer",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "290": {
+     "kind": "real",
+     "name": "wsaaDidEnterDefer",
+     "args": "int",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "291": {
+     "kind": "real",
+     "name": "willPowerOff",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "292": {
+     "kind": "real",
+     "name": "didPowerOn",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "293": {
+     "kind": "real",
+     "name": "logTransactionTimeoutDiagnosisReport",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "294": {
+     "kind": "real",
+     "name": "getStampIndex",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "295": {
+     "kind": "real",
+     "name": "triage",
+     "args": "char**, unsigned long long*",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "296": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelDisplayPipe1",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "297": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelDisplayPipe2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "298": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelDisplayPipe3",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "299": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelDisplayPipe4",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "300": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelDisplayPipe5",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "301": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelDisplayPipe6",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "302": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelDisplayPipe7",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "303": {
+     "kind": "real",
+     "name": "framebuffer_will_power_off",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "304": {
+     "kind": "real",
+     "name": "framebuffer_did_power_on",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    },
+    "305": {
+     "kind": "real",
+     "name": "framebuffer_terminated",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelDisplayPipe"
+    }
+   }
+  },
+  "IOAccelMemoryMap": {
+   "super": "OSObject",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOAccelMemoryMap",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOAccelMemoryMap",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "5": {
+     "kind": "real",
+     "name": "release",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelMemoryMap"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelMemoryMap"
+    },
+    "18": {
+     "kind": "real",
+     "name": "free",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "35": {
+     "kind": "real",
+     "name": "init",
+     "args": "IOGraphicsAccelerator2*, IOAccelTask*, IOAccelMemory*, unsigned int",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "36": {
+     "kind": "real",
+     "name": "matchOptionBits",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "37": {
+     "kind": "real",
+     "name": "getGPUVirtualAddress",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "38": {
+     "kind": "real",
+     "name": "getGPUVirtualAddressForUserProcess",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "39": {
+     "kind": "real",
+     "name": "prepare",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "40": {
+     "kind": "real",
+     "name": "complete",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "41": {
+     "kind": "real",
+     "name": "compatibleWith",
+     "args": "IOAccelMemoryMap*",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "42": {
+     "kind": "real",
+     "name": "allocGPUVirtualAddress",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "43": {
+     "kind": "real",
+     "name": "reserveGPUVirtualAddress",
+     "args": "unsigned long long, unsigned long long",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "44": {
+     "kind": "real",
+     "name": "freeGPUVirtualAddress",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "45": {
+     "kind": "real",
+     "name": "getLength",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelMemoryMap"
+    },
+    "46": {
+     "kind": "real",
+     "name": "commitIntoGPUPageTable",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "47": {
+     "kind": "real",
+     "name": "releaseFromGPUPageTable",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "48": {
+     "kind": "real",
+     "name": "updateGPUPageTable",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "49": {
+     "kind": "real",
+     "name": "getGPUVirtualAddressLengthForUserProcess",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "50": {
+     "kind": "real",
+     "name": "getAssignedGPUVirtualAddressLength",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelMemoryMap"
+    },
+    "51": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelMemoryMap1",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "52": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelMemoryMap2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "53": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelMemoryMap3",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "54": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelMemoryMap4",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "55": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelMemoryMap5",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    },
+    "56": {
+     "kind": "real",
+     "name": "redirect",
+     "args": "IOAccelMemory*",
+     "cv": "",
+     "owner": "IOAccelMemoryMap"
+    }
+   }
+  },
+  "IOFramebuffer": {
+   "super": "IOGraphicsDevice",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOFramebuffer",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOFramebuffer",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOFramebuffer"
+    },
+    "18": {
+     "kind": "real",
+     "name": "free",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "96": {
+     "kind": "real",
+     "name": "setProperties",
+     "args": "OSObject*",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "127": {
+     "kind": "real",
+     "name": "requestTerminate",
+     "args": "IOService*, unsigned int",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "128": {
+     "kind": "real",
+     "name": "willTerminate",
+     "args": "IOService*, unsigned int",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "129": {
+     "kind": "real",
+     "name": "didTerminate",
+     "args": "IOService*, unsigned int, bool*",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "184": {
+     "kind": "real",
+     "name": "start",
+     "args": "IOService*",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "185": {
+     "kind": "real",
+     "name": "stop",
+     "args": "IOService*",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "192": {
+     "kind": "real",
+     "name": "terminate",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "206": {
+     "kind": "real",
+     "name": "attach",
+     "args": "IOService*",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "209": {
+     "kind": "real",
+     "name": "getWorkLoop",
+     "args": "",
+     "cv": " const",
+     "owner": "IOFramebuffer"
+    },
+    "215": {
+     "kind": "real",
+     "name": "callPlatformFunction",
+     "args": "OSSymbol const*, bool, void*, void*, void*, void*",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "229": {
+     "kind": "real",
+     "name": "requestProbe",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "230": {
+     "kind": "real",
+     "name": "message",
+     "args": "unsigned int, IOService*, void*",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "239": {
+     "kind": "real",
+     "name": "newUserClient",
+     "args": "task*, void*, unsigned int, IOUserClient**",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "248": {
+     "kind": "real",
+     "name": "setAggressiveness",
+     "args": "unsigned long, unsigned long",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "249": {
+     "kind": "real",
+     "name": "getAggressiveness",
+     "args": "unsigned long, unsigned long*",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "253": {
+     "kind": "real",
+     "name": "setPowerState",
+     "args": "unsigned long, IOService*",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "257": {
+     "kind": "real",
+     "name": "powerStateWillChangeTo",
+     "args": "unsigned long, unsigned long, IOService*",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "258": {
+     "kind": "real",
+     "name": "powerStateDidChangeTo",
+     "args": "unsigned long, unsigned long, IOService*",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "266": {
+     "kind": "real",
+     "name": "hideCursor",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "267": {
+     "kind": "real",
+     "name": "showCursor",
+     "args": "IOGPoint*, int",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "268": {
+     "kind": "real",
+     "name": "moveCursor",
+     "args": "IOGPoint*, int",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "269": {
+     "kind": "real",
+     "name": "getVBLTime",
+     "args": "unsigned long long*, unsigned long long*",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "270": {
+     "kind": "real",
+     "name": "getBoundingRect",
+     "args": "IOGBounds**",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "271": {
+     "kind": "sdk",
+     "name": "IOReturn doI2CRequest(UInt32 bus, struct IOI2CBusTiming * timing, struct IOI2CRequest * request)",
+     "args": "UInt32 bus, struct IOI2CBusTiming * timing, struct IOI2CRequest * request",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "272": {
+     "kind": "sdk",
+     "name": "IOReturn diagnoseReport(void * param1, void * param2, void * param3, void * param4)",
+     "args": "void * param1, void * param2, void * param3, void * param4",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "273": {
+     "kind": "sdk",
+     "name": "IOReturn setGammaTable(UInt32 channelCount, UInt32 dataCount, UInt32 dataWidth, void * data, bool syncToVBL)",
+     "args": "UInt32 channelCount, UInt32 dataCount, UInt32 dataWidth, void * data, bool syncToVBL",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "274": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer3",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "275": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer4",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "276": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer5",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "277": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer6",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "278": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer7",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "279": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer8",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "280": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer9",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "281": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer10",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "282": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer11",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "283": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer12",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "284": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer13",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "285": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer14",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "286": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer15",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "287": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer16",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "288": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer17",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "289": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer18",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "290": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer19",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "291": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer20",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "292": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer21",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "293": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer22",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "294": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer23",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "295": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer24",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "296": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer25",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "297": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer26",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "298": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer27",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "299": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer28",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "300": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer29",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "301": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer30",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "302": {
+     "kind": "real",
+     "name": "_RESERVEDIOFramebuffer31",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "303": {
+     "kind": "real",
+     "name": "open",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "304": {
+     "kind": "real",
+     "name": "close",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "305": {
+     "kind": "real",
+     "name": "isConsoleDevice",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "306": {
+     "kind": "real",
+     "name": "setupForCurrentConfig",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "307": {
+     "kind": "sdk",
+     "name": "bool serializeInfo(OSSerialize * s)",
+     "args": "OSSerialize * s",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "308": {
+     "kind": "sdk",
+     "name": "bool setNumber(OSDictionary * dict, const char * key, UInt32 number)",
+     "args": "OSDictionary * dict, const char * key, UInt32 number",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "309": {
+     "kind": "sdk",
+     "name": "IODeviceMemory * getApertureRange(IOPixelAperture aperture)",
+     "args": "IOPixelAperture aperture",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "310": {
+     "kind": "real",
+     "name": "getVRAMRange",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "311": {
+     "kind": "real",
+     "name": "enableController",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "312": {
+     "kind": "real",
+     "name": "getPixelFormats",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "313": {
+     "kind": "real",
+     "name": "getDisplayModeCount",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "314": {
+     "kind": "sdk",
+     "name": "IOReturn getDisplayModes(IODisplayModeID * allDisplayModes)",
+     "args": "IODisplayModeID * allDisplayModes",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "315": {
+     "kind": "sdk",
+     "name": "IOReturn getInformationForDisplayMode(IODisplayModeID displayMode, IODisplayModeInformation * info)",
+     "args": "IODisplayModeID displayMode, IODisplayModeInformation * info",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "316": {
+     "kind": "sdk",
+     "name": "UInt64 getPixelFormatsForDisplayMode(IODisplayModeID displayMode, IOIndex depth)",
+     "args": "IODisplayModeID displayMode, IOIndex depth",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "317": {
+     "kind": "sdk",
+     "name": "IOReturn getPixelInformation(IODisplayModeID displayMode, IOIndex depth, IOPixelAperture aperture, IOPixelInformation * pixelInfo)",
+     "args": "IODisplayModeID displayMode, IOIndex depth, IOPixelAperture aperture, IOPixelInformation * pixelInfo",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "318": {
+     "kind": "sdk",
+     "name": "IOReturn getCurrentDisplayMode(IODisplayModeID * displayMode, IOIndex * depth)",
+     "args": "IODisplayModeID * displayMode, IOIndex * depth",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "319": {
+     "kind": "sdk",
+     "name": "IOReturn setDisplayMode(IODisplayModeID displayMode, IOIndex depth)",
+     "args": "IODisplayModeID displayMode, IOIndex depth",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "320": {
+     "kind": "sdk",
+     "name": "IOReturn setApertureEnable(IOPixelAperture aperture, IOOptionBits enable)",
+     "args": "IOPixelAperture aperture, IOOptionBits enable",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "321": {
+     "kind": "sdk",
+     "name": "IOReturn setStartupDisplayMode(IODisplayModeID displayMode, IOIndex depth)",
+     "args": "IODisplayModeID displayMode, IOIndex depth",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "322": {
+     "kind": "sdk",
+     "name": "IOReturn getStartupDisplayMode(IODisplayModeID * displayMode, IOIndex * depth)",
+     "args": "IODisplayModeID * displayMode, IOIndex * depth",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "323": {
+     "kind": "sdk",
+     "name": "IOReturn setCLUTWithEntries(IOColorEntry * colors, UInt32 index, UInt32 numEntries, IOOptionBits options)",
+     "args": "IOColorEntry * colors, UInt32 index, UInt32 numEntries, IOOptionBits options",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "324": {
+     "kind": "sdk",
+     "name": "IOReturn setGammaTable(UInt32 channelCount, UInt32 dataCount, UInt32 dataWidth, void * data)",
+     "args": "UInt32 channelCount, UInt32 dataCount, UInt32 dataWidth, void * data",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "325": {
+     "kind": "sdk",
+     "name": "IOReturn setAttribute(IOSelect attribute, uintptr_t value)",
+     "args": "IOSelect attribute, uintptr_t value",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "326": {
+     "kind": "sdk",
+     "name": "IOReturn getAttribute(IOSelect attribute, uintptr_t * value)",
+     "args": "IOSelect attribute, uintptr_t * value",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "327": {
+     "kind": "sdk",
+     "name": "IOReturn getTimingInfoForDisplayMode(IODisplayModeID displayMode, IOTimingInformation * info)",
+     "args": "IODisplayModeID displayMode, IOTimingInformation * info",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "328": {
+     "kind": "sdk",
+     "name": "IOReturn validateDetailedTiming(void * description, IOByteCount descripSize)",
+     "args": "void * description, IOByteCount descripSize",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "329": {
+     "kind": "sdk",
+     "name": "IOReturn setDetailedTimings(OSArray * array)",
+     "args": "OSArray * array",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "330": {
+     "kind": "real",
+     "name": "getConnectionCount",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "331": {
+     "kind": "sdk",
+     "name": "IOReturn setAttributeForConnection(IOIndex connectIndex, IOSelect attribute, uintptr_t value)",
+     "args": "IOIndex connectIndex, IOSelect attribute, uintptr_t value",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "332": {
+     "kind": "sdk",
+     "name": "IOReturn getAttributeForConnection(IOIndex connectIndex, IOSelect attribute, uintptr_t * value)",
+     "args": "IOIndex connectIndex, IOSelect attribute, uintptr_t * value",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "333": {
+     "kind": "sdk",
+     "name": "bool convertCursorImage(void * cursorImage, IOHardwareCursorDescriptor * description, IOHardwareCursorInfo * cursor)",
+     "args": "void * cursorImage, IOHardwareCursorDescriptor * description, IOHardwareCursorInfo * cursor",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "334": {
+     "kind": "sdk",
+     "name": "IOReturn setCursorImage(void * cursorImage)",
+     "args": "void * cursorImage",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "335": {
+     "kind": "sdk",
+     "name": "IOReturn setCursorState(SInt32 x, SInt32 y, bool visible)",
+     "args": "SInt32 x, SInt32 y, bool visible",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "336": {
+     "kind": "real",
+     "name": "flushCursor",
+     "args": "",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "337": {
+     "kind": "sdk",
+     "name": "IOReturn getAppleSense(IOIndex connectIndex, UInt32 * senseType, UInt32 * primary, UInt32 * extended, UInt32 * displayType)",
+     "args": "IOIndex connectIndex, UInt32 * senseType, UInt32 * primary, UInt32 * extended, UInt32 * displayType",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "338": {
+     "kind": "sdk",
+     "name": "IOReturn connectFlags(IOIndex connectIndex, IODisplayModeID displayMode, IOOptionBits * flags)",
+     "args": "IOIndex connectIndex, IODisplayModeID displayMode, IOOptionBits * flags",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "339": {
+     "kind": "sdk",
+     "name": "void setDDCClock(IOIndex bus, UInt32 value)",
+     "args": "IOIndex bus, UInt32 value",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "340": {
+     "kind": "sdk",
+     "name": "void setDDCData(IOIndex bus, UInt32 value)",
+     "args": "IOIndex bus, UInt32 value",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "341": {
+     "kind": "sdk",
+     "name": "bool readDDCClock(IOIndex bus)",
+     "args": "IOIndex bus",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "342": {
+     "kind": "sdk",
+     "name": "bool readDDCData(IOIndex bus)",
+     "args": "IOIndex bus",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "343": {
+     "kind": "sdk",
+     "name": "IOReturn enableDDCRaster(bool enable)",
+     "args": "bool enable",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "344": {
+     "kind": "sdk",
+     "name": "bool hasDDCConnect(IOIndex connectIndex)",
+     "args": "IOIndex connectIndex",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "345": {
+     "kind": "sdk",
+     "name": "IOReturn getDDCBlock(IOIndex connectIndex, UInt32 blockNumber, IOSelect blockType, IOOptionBits options, UInt8 * data, IOByteCount * length)",
+     "args": "IOIndex connectIndex, UInt32 blockNumber, IOSelect blockType, IOOptionBits options, UInt8 * data, IOByteCount * length",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "346": {
+     "kind": "sdk",
+     "name": "IOReturn registerForInterruptType(IOSelect interruptType, IOFBInterruptProc proc, OSObject * target, void * ref, void ** interruptRef)",
+     "args": "IOSelect interruptType, IOFBInterruptProc proc, OSObject * target, void * ref, void ** interruptRef",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "347": {
+     "kind": "sdk",
+     "name": "IOReturn unregisterInterrupt(void * interruptRef)",
+     "args": "void * interruptRef",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "348": {
+     "kind": "sdk",
+     "name": "IOReturn setInterruptState(void * interruptRef, UInt32 state)",
+     "args": "void * interruptRef, UInt32 state",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    },
+    "349": {
+     "kind": "sdk",
+     "name": "IOReturn getNotificationSemaphore(IOSelect interruptType, semaphore_t * semaphore)",
+     "args": "IOSelect interruptType, semaphore_t * semaphore",
+     "cv": "",
+     "owner": "IOFramebuffer"
+    }
+   }
+  },
+  "IOAccelMemory": {
+   "super": "OSObject",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOAccelMemory",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOAccelMemory",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "5": {
+     "kind": "real",
+     "name": "release",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelMemory"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelMemory"
+    },
+    "18": {
+     "kind": "real",
+     "name": "free",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "35": {
+     "kind": "real",
+     "name": "init",
+     "args": "IOGraphicsAccelerator2*",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "36": {
+     "kind": "real",
+     "name": "getLength",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelMemory"
+    },
+    "37": {
+     "kind": "real",
+     "name": "getDirtySize",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelMemory"
+    },
+    "38": {
+     "kind": "real",
+     "name": "getResidentSize",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelMemory"
+    },
+    "39": {
+     "kind": "real",
+     "name": "createMappingInTask",
+     "args": "IOAccelTask*, unsigned int",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "40": {
+     "kind": "real",
+     "name": "createMappingInTaskAtAddressLength",
+     "args": "IOAccelTask*, unsigned int, unsigned long long, unsigned long long",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "41": {
+     "kind": "real",
+     "name": "prepare",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "42": {
+     "kind": "real",
+     "name": "complete",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "43": {
+     "kind": "real",
+     "name": "getPhysicalSegment",
+     "args": "unsigned long long, unsigned long long*",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "44": {
+     "kind": "real",
+     "name": "setPurgeable",
+     "args": "unsigned int, unsigned int*",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "45": {
+     "kind": "real",
+     "name": "setTag",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "46": {
+     "kind": "real",
+     "name": "getTag",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "47": {
+     "kind": "real",
+     "name": "matchForReuse",
+     "args": "void*, unsigned long long",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "48": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelMemory0",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "49": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelMemory1",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "50": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelMemory2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "51": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelMemory3",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "52": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelMemory4",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "53": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelMemory5",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "54": {
+     "kind": "real",
+     "name": "wire",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "55": {
+     "kind": "real",
+     "name": "unwire",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "56": {
+     "kind": "real",
+     "name": "orphanIt",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "57": {
+     "kind": "real",
+     "name": "unorphanIt",
+     "args": "IOAccelShared2*",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "58": {
+     "kind": "real",
+     "name": "increment_wire_count",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    },
+    "59": {
+     "kind": "real",
+     "name": "decrement_wire_count",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelMemory"
+    }
+   }
+  },
+  "IOAccelContext2": {
+   "super": "IOAccelSubmitter2",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOAccelContext2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOAccelContext2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelContext2"
+    },
+    "18": {
+     "kind": "real",
+     "name": "free",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "184": {
+     "kind": "real",
+     "name": "start",
+     "args": "IOService*",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "185": {
+     "kind": "real",
+     "name": "stop",
+     "args": "IOService*",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "193": {
+     "kind": "real",
+     "name": "finalize",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "206": {
+     "kind": "real",
+     "name": "attach",
+     "args": "IOService*",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "266": {
+     "kind": "real",
+     "name": "externalMethod",
+     "args": "unsigned int, IOExternalMethodArguments*, IOExternalMethodDispatch*, OSObject*, void*",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "286": {
+     "kind": "real",
+     "name": "clientClose",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "291": {
+     "kind": "real",
+     "name": "connectClient",
+     "args": "IOUserClient*",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "292": {
+     "kind": "real",
+     "name": "clientMemoryForType",
+     "args": "unsigned int, unsigned int*, IOMemoryDescriptor**",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "296": {
+     "kind": "real",
+     "name": "getTargetAndMethodForIndex",
+     "args": "IOService**, unsigned int",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "300": {
+     "kind": "real",
+     "name": "getOwningTask",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelContext2"
+    },
+    "301": {
+     "kind": "real",
+     "name": "getGPUTask",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelContext2"
+    },
+    "302": {
+     "kind": "real",
+     "name": "getOwningTaskPid",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelContext2"
+    },
+    "303": {
+     "kind": "real",
+     "name": "affectedByHardwareReset",
+     "args": "bool, unsigned int",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "305": {
+     "kind": "real",
+     "name": "shouldHardwareCommandNooped",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "306": {
+     "kind": "real",
+     "name": "orphanClientMappings",
+     "args": "OSSet*",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "316": {
+     "kind": "real",
+     "name": "contextStart",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "317": {
+     "kind": "real",
+     "name": "contextStop",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "318": {
+     "kind": "real",
+     "name": "getDataBufferLimits",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "319": {
+     "kind": "real",
+     "name": "context_finish",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "320": {
+     "kind": "real",
+     "name": "initSidebandBufferHeader",
+     "args": "IOAccelSidebandBufferHeader*, unsigned long long, unsigned long long",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "321": {
+     "kind": "real",
+     "name": "processSidebandBuffer",
+     "args": "IOAccelCommandDescriptor*, bool",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "322": {
+     "kind": "real",
+     "name": "processSidebandToken",
+     "args": "IOAccelCommandStreamInfo&",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "323": {
+     "kind": "real",
+     "name": "discardSidebandToken",
+     "args": "IOAccelCommandStreamInfo&",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "324": {
+     "kind": "real",
+     "name": "postTokenSanityCheck",
+     "args": "IOAccelCommandStreamInfo&",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "325": {
+     "kind": "real",
+     "name": "processDataBuffers",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "326": {
+     "kind": "real",
+     "name": "beginCommandStream",
+     "args": "IOAccelCommandStreamInfo&",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "327": {
+     "kind": "real",
+     "name": "endCommandStream",
+     "args": "IOAccelCommandStreamInfo&",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "328": {
+     "kind": "real",
+     "name": "bindResource",
+     "args": "IOAccelCommandStreamInfo&, IOAccelResource2*, bool, IOAccelChannel2*, unsigned int, bool",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "329": {
+     "kind": "real",
+     "name": "unbindResource",
+     "args": "IOAccelCommandStreamInfo&, IOAccelResource2*, IOAccelChannel2*",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "330": {
+     "kind": "real",
+     "name": "compactCurrentVidMemory",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "331": {
+     "kind": "real",
+     "name": "prepareResources",
+     "args": "IOAccelResource2**, int",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "332": {
+     "kind": "real",
+     "name": "compactCurrentMappings",
+     "args": "IOAccelMemoryMap*",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "333": {
+     "kind": "real",
+     "name": "getDataBuffer",
+     "args": "IOAccelContextGetDataBufferIn*, IOAccelContextGetDataBufferOut*, IOAccelResourcePrivate*, unsigned long long",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "334": {
+     "kind": "real",
+     "name": "allocOneDataBuffer",
+     "args": "bool, unsigned int",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "335": {
+     "kind": "real",
+     "name": "getDataBufferPrivate",
+     "args": "IOAccelResource2*, IOAccelResourcePrivate*, unsigned long long",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "336": {
+     "kind": "real",
+     "name": "validateDataBuffer",
+     "args": "unsigned long long, IOBufferMemoryDescriptor*, IOAccelResource2*",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "337": {
+     "kind": "real",
+     "name": "populateContextConfig",
+     "args": "IOAccelContextConfig*",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "338": {
+     "kind": "real",
+     "name": "addDataBufferToChannel",
+     "args": "IOAccelResource2*, unsigned int",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "339": {
+     "kind": "real",
+     "name": "removeDataBufferFromChannel",
+     "args": "IOAccelResource2*, unsigned int",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "340": {
+     "kind": "real",
+     "name": "removeCurrentResourceFromChannel",
+     "args": "IOAccelResource2*, unsigned int",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "341": {
+     "kind": "real",
+     "name": "invalidate",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "342": {
+     "kind": "real",
+     "name": "getFrameDelimiter",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "343": {
+     "kind": "real",
+     "name": "canSubmitCommandBuffer",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "344": {
+     "kind": "real",
+     "name": "pauseSubmitCommandBuffer",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "345": {
+     "kind": "real",
+     "name": "getPriorityInfo",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "346": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelContext0",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "347": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelContext1",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "348": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelContext2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "349": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelContext3",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "350": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelContext4",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "351": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelContext5",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "352": {
+     "kind": "real",
+     "name": "getSurfaceReqBits",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelContext2"
+    },
+    "353": {
+     "kind": "real",
+     "name": "requiresBackingStore",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelContext2"
+    },
+    "354": {
+     "kind": "real",
+     "name": "set_compatible_surface_mode",
+     "args": "unsigned long long*, unsigned long long, unsigned int",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "355": {
+     "kind": "real",
+     "name": "removeSurface",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    },
+    "356": {
+     "kind": "real",
+     "name": "allowsExclusiveMode",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelContext2"
+    },
+    "357": {
+     "kind": "real",
+     "name": "isTripleBuffered",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelContext2"
+    },
+    "358": {
+     "kind": "real",
+     "name": "contextModeBits",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelContext2"
+    },
+    "359": {
+     "kind": "real",
+     "name": "describeDriverAllocations",
+     "args": "IOAccelAllocationInfo*",
+     "cv": "",
+     "owner": "IOAccelContext2"
+    }
+   }
+  },
+  "IOAccelSubmitter2": {
+   "super": "IOUserClient",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOAccelSubmitter2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSubmitter2"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOAccelSubmitter2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSubmitter2"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelSubmitter2"
+    },
+    "184": {
+     "kind": "real",
+     "name": "start",
+     "args": "IOService*",
+     "cv": "",
+     "owner": "IOAccelSubmitter2"
+    },
+    "185": {
+     "kind": "real",
+     "name": "stop",
+     "args": "IOService*",
+     "cv": "",
+     "owner": "IOAccelSubmitter2"
+    },
+    "300": {
+     "kind": "real",
+     "name": "getOwningTask",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelSubmitter2"
+    },
+    "301": {
+     "kind": "real",
+     "name": "getGPUTask",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelSubmitter2"
+    },
+    "302": {
+     "kind": "real",
+     "name": "getOwningTaskPid",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelSubmitter2"
+    },
+    "303": {
+     "kind": "real",
+     "name": "affectedByHardwareReset",
+     "args": "bool, unsigned int",
+     "cv": "",
+     "owner": "IOAccelSubmitter2"
+    },
+    "304": {
+     "kind": "real",
+     "name": "retireCommandBuffer",
+     "args": "IOAccelEventFence*",
+     "cv": "",
+     "owner": "IOAccelSubmitter2"
+    },
+    "305": {
+     "kind": "real",
+     "name": "shouldHardwareCommandNooped",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSubmitter2"
+    },
+    "306": {
+     "kind": "real",
+     "name": "orphanClientMappings",
+     "args": "OSSet*",
+     "cv": "",
+     "owner": "IOAccelSubmitter2"
+    },
+    "307": {
+     "kind": "real",
+     "name": "setProtectionOptions",
+     "args": "unsigned long long",
+     "cv": "",
+     "owner": "IOAccelSubmitter2"
+    },
+    "308": {
+     "kind": "real",
+     "name": "setSubmissionError",
+     "args": "unsigned int",
+     "cv": "",
+     "owner": "IOAccelSubmitter2"
+    },
+    "309": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSubmitter0",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSubmitter2"
+    },
+    "310": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSubmitter1",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSubmitter2"
+    },
+    "311": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSubmitter2",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSubmitter2"
+    },
+    "312": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSubmitter3",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSubmitter2"
+    },
+    "313": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSubmitter4",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSubmitter2"
+    },
+    "314": {
+     "kind": "real",
+     "name": "_RESERVEDIOAccelSubmitter5",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelSubmitter2"
+    },
+    "315": {
+     "kind": "real",
+     "name": "isOpportunisticWorkload",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelSubmitter2"
+    }
+   }
+  },
+  "IOAccelerator": {
+   "super": "IOService",
+   "slots": {
+    "0": {
+     "kind": "real",
+     "name": "~IOAccelerator",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelerator"
+    },
+    "1": {
+     "kind": "real",
+     "name": "~IOAccelerator",
+     "args": "",
+     "cv": "",
+     "owner": "IOAccelerator"
+    },
+    "7": {
+     "kind": "real",
+     "name": "getMetaClass",
+     "args": "",
+     "cv": " const",
+     "owner": "IOAccelerator"
+    }
+   }
+  }
+ }
+}
