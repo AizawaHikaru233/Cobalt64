@@ -115,10 +115,13 @@ static void n48_log(const char *fmt, ...) {
 #define N48LOGR(fmt, ...) do { static _Atomic uint64_t n_; uint64_t k_ = atomic_fetch_add(&n_, 1); if (k_ < 8 || (k_ & 1023) == 0) n48_log(fmt, ##__VA_ARGS__); } while (0)
 
 // ---------------------------------------------------------------------------------------------------------------
-// Load policy (NATIVE-S4-M11 11b, L1-L3). Every Metal-enumerating process loads this bundle; only WindowServer, a root
-// tool that opts in with N48M_ALLOW=1, or (GPU-apps G4, kext 0.0.640) a process the KERNEL admits as an allow-listed application (decided by a
-// successful N48N open + QueryInfo, never by name; n48_gate.h) may get a device. All test hooks are honoured only with N48M_ALLOW=1 as root.
-// Outside WindowServer the safety gates below FAIL CLOSED (a gate that cannot be read declines): see n48_gate.h.
+// Load policy (L1-L3; BUNDLE 21 DEFAULT-ALLOW). Every Metal-enumerating process loads this
+// bundle and every one of them is admitted by the probe now: the rule is "whoever the KERNEL admits" (a successful N48N open +
+// Hello + QueryInfo, decided by the kernel, never by name; n48_gate.h). Kext 0.0.665 admits every non-administrator caller with
+// the APP role, and that role still cannot read registers, touch the scanout plane or call 15..20 - which is what makes this
+// safe to open up. WindowServer and an N48M_ALLOW=1 root tool keep their own classes; the old class rule ("neither of those ->
+// declined without opening") is gone. All test hooks are still honoured only with N48M_ALLOW=1 as root.
+// The safety gates below are NOT identity policy and still FAIL CLOSED (a gate that cannot be read declines): see n48_gate.h.
 //   /private/tmp/n48m-off              exists -> decline (L1 kill file); outside WindowServer also when the stat is denied (anything but ENOENT / ENOTDIR)
 //   /private/tmp/n48m-starts           one epoch-seconds line per WindowServer init; >= 3 within 300 s -> decline (L2)
 //   nub property "Navi48,Ready" = 0    -> decline (L3); WindowServer: absent (old kexts) -> proceed; elsewhere it must be present and 1

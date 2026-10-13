@@ -34,9 +34,16 @@ static inline int n48g_class(int isWs, int allowRoot) { return isWs ? N48G_CLASS
 // 0.0.641 (G4 review HIGH 2): only a process whose EFFECTIVE uid is an ordinary user's (>= 501, the same bound as the kernel's kAppMinUid) is ever probed. A root process without N48M_ALLOW=1 and a
 // system daemon (euid < 501, _windowserver's 88 included when it is not named WindowServer) is declined BY CLASS, exactly as in 0.0.632, with no kernel open at all: the probe would otherwise open a real
 // session as root for every Metal-enumerating daemon (stalling WindowServer's exclusive open with the switches off, resetting the seqno as first opener).
-#define N48G_APP_MIN_EUID 501u
-static inline int n48g_declined_by_class(int cls, uint32_t euid) { return cls == N48G_CLASS_OTHER && euid < N48G_APP_MIN_EUID; }
-#define N48G_DECLINE_BY_CLASS_TEXT "process is not WindowServer and N48M_ALLOW=1 (as root) is not set"
+//
+// BUNDLE 21 (DEFAULT-ALLOW): the class rule above is GONE. No process is declined for who it is. Every
+// Metal-enumerating process reaches the probe, and the probe's own verdict decides - which means the KERNEL decides: a
+// process only gets a device if its N48N open + Hello + QueryInfo succeed. The reason no class rule is needed is
+// that the kernel side now admits every non-administrator caller with the APP role (kext 0.0.665) and, crucially, still
+// gives that role only the application selector set. The safety items below are untouched and still fail closed:
+// the L1 kill file, the L2 crash-loop counter, the Navi48,Ready / AutoDisarmed nub properties and the HUNG check.
+#define N48G_APP_MIN_EUID 501u   // kept: it is still reported in the log line, it just no longer declines anything
+static inline int n48g_declined_by_class(int cls, uint32_t euid) { (void)cls; (void)euid; return 0; }
+#define N48G_DECLINE_BY_CLASS_TEXT "declined by class (unreachable since bundle 21: every process is admitted by the probe)"
 
 // ---- the kill file ----
 #define N48G_KILL_ABSENT     0
@@ -86,26 +93,31 @@ static inline const char *n48g_mesa_service_for_class(int cls) { return cls == N
 #define N48G_PROBE_HUNG   5
 #define N48G_PROBE_NOTAPP 6
 static inline int n48g_probe_retry(uint32_t openRc, int tries) { return openRc == N48G_KR_EXCLUSIVE && tries < N48G_PROBE_RETRIES; }
-// budgetFlags: n48n_info.reserved[3]. A root process is admitted by the kernel too, as root - without N48M_ALLOW=1 that must stay declined, so the verdict
-// needs the kernel to say APP.
+// budgetFlags: n48n_info.reserved[3]. A root process is admitted by the kernel too, as root - without N48M_ALLOW=1 that used to stay declined, so the verdict
+// needed the kernel to say APP.
+//
+// BUNDLE 21 (DEFAULT-ALLOW): that APP requirement is dropped. A process that CAN open N48N, Hello and QueryInfo gets a
+// device - that is the whole rule now (the kernel's own admission decides, kext 0.0.665 admits every non-administrator as APP).
+// Kept deliberately: the HUNG check. Admitting a process while the kernel reports the GPU hung would hand it a device whose
+// submissions are already known to be unsafe; that is a safety gate, not an identity policy, so it stays.
 static inline int n48g_probe_verdict(int haveSvc, uint32_t openRc, uint32_t helloRc, uint32_t infoRc, uint32_t infoFlags, uint32_t budgetFlags) {
+    (void)budgetFlags;
     if (!haveSvc) return N48G_PROBE_NOSVC;
     if (openRc != 0u) return N48G_PROBE_OPEN;
     if (helloRc != 0u) return N48G_PROBE_HELLO;
     if (infoRc != 0u) return N48G_PROBE_INFO;
     if ((infoFlags & N48G_INFO_HUNG) != 0u) return N48G_PROBE_HUNG;
-    if ((budgetFlags & N48G_BUDGET_APP) == 0u) return N48G_PROBE_NOTAPP;
     return N48G_PROBE_OK;
 }
 static inline const char *n48g_probe_text(int v) {
     switch (v) {
     case N48G_PROBE_OK:    return "the kernel admitted this process";
-    case N48G_PROBE_NOSVC: return "process is not WindowServer or an N48M_ALLOW=1 root tool, and the Navi48Bringup service was not found (or the sandbox denied the lookup)";
-    case N48G_PROBE_OPEN:  return "process is not WindowServer or an N48M_ALLOW=1 root tool, and the kernel refused its N48N open (not allow-listed, or the user-application role is off)";
+    case N48G_PROBE_NOSVC: return "the Navi48Bringup service was not found (or the caller's sandbox denied the lookup)";
+    case N48G_PROBE_OPEN:  return "the kernel refused its N48N open (see the kext's own log line for the reason)";
     case N48G_PROBE_HELLO: return "the kernel probe's Hello failed";
     case N48G_PROBE_INFO:  return "the kernel probe's QueryInfo could not be read";
-    case N48G_PROBE_HUNG:  return "the kernel reports the GPU HUNG";
-    case N48G_PROBE_NOTAPP: return "the kernel admitted this process as root, not as an allow-listed application (a root tool needs N48M_ALLOW=1)";
+    case N48G_PROBE_HUNG:  return "the kernel reports the GPU HUNG (kept as a safety gate)";
+    case N48G_PROBE_NOTAPP: return "the kernel admitted this process with a role that is not an application (unreachable since bundle 21: the APP mark is no longer required)";
     default:               return "?";
     }
 }
