@@ -2344,7 +2344,8 @@ static int cmd_accel(const char *what, const char *arg, const char *arg2, const 
     if (in == 103) {
         // 0.0.627 (G2): out[3 + i] = v[i] of amdgpu::n1c_g2_stat (amd/native_g2_pure.h sess_out / global_out / cli_out); v[0] is the code.
         // 0.0.669: page 0..7 = ONE VMID POOL HANDLE each, page 8 (kStatGlobal) = the global page, page 9 (kStatClients) = the client table.
-        // (0.0.666-0.0.668 compared out[4] against 4 here, the 0.0.627 slot count: `sessstat` with no argument printed the per-slot branch. Fixed.)
+        // A bare `sessstat` must print the global page, so the branches below key on the page number and never on a hard-coded one: a hard-coded
+        // number silently stops matching the moment the page numbering changes.
         const unsigned long long c = out[3];
         printf("  code                    : %llu (%s)\n", c, c == 0 ? "ok" : c == 1 ? "OFF: boot-arg navi48-multisession is not 1" : c == 2 ? "bad page" : "?");
         if (c == 0 && out[4] == 9) {
@@ -2379,7 +2380,11 @@ static int cmd_accel(const char *what, const char *arg, const char *arg2, const 
                (0xffffffff = free) and the 0x1000 flag bit says the handle is FREE. */
             const unsigned long long st = out[5] & 0xff;
             const unsigned long long cli = out[15];
-            printf("  VMID handle             : %llu (VMID %llu), held by client %s\n", out[4], out[6], (out[5] & 0x1000) ? "NOBODY (free)" : cli == ~0ull ? "?" : "");
+            char who[32];
+            if (out[5] & 0x1000) snprintf(who, sizeof who, "NOBODY (free)");
+            else if (cli == ~0ull) snprintf(who, sizeof who, "? (no owner recorded)");
+            else snprintf(who, sizeof who, "%llu", cli);
+            printf("  VMID handle             : %llu (VMID %llu), held by client %s\n", out[4], out[6], who);
             if (out[5] & 0x1000) { printf("  this handle is FREE     : no client's context is programmed here (the pool's own page; it costs nothing)\n"); return c == 0 ? 0 : 3; }
             if (cli != ~0ull) printf("  client record / session : %llu / %llu\n", cli, out[7]);
             printf("  state                   : %s%s%s%s\n", st == 0 ? "free" : st == 1 ? "OPEN" : st == 2 ? "QUARANTINED (held until the reclaim pass can prove its work retired; NOT lost)" : "?",

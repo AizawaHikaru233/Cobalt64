@@ -331,7 +331,7 @@ static void t8_pins(const std::string &root) {
     expect(!eng.empty() && !engh.empty() && !cli.empty() && !clih.empty() && !brg.empty() && !ucl.empty() && !abi.empty() && !plist.empty() && !cmd.empty() && !pol.empty() && !g4p.empty() && !g2p.empty(), "T8: every source is readable");
     // version and ABI
     expect(count_of(plist, "<string>0.0.670</string>") == 2 && plist.find("0.0.665") == std::string::npos, "T8: Info.plist is 0.0.670, carried twice (0.0.666 = 8 sessions; 0.0.665 was default-allow)");
-    expect(engh.find("constexpr uint32_t kN1cKextBuild = 670;") != std::string::npos, "T8: the native client reports build 666 (in step with Info.plist)");
+    expect(engh.find("constexpr uint32_t kN1cKextBuild = 670;") != std::string::npos, "T8: the native client reports build 670 (in step with Info.plist)");
     expect(abi.find("#define N48N_ABI_MINOR     12u ") != std::string::npos, "T8: ABI minor 12");
     expect(abi.find("#define N48N_BUDGET_VALID (1u << 0)") != std::string::npos && abi.find("#define N48N_BUDGET_APP   (1u << 1)") != std::string::npos, "T8: the budget flags are in the ABI header");
     // the latch: one reader, latched once, needs multi

@@ -465,7 +465,7 @@ static void m5_pins(const std::string &root, const std::string &auxroot) {
         const size_t v = plist.find("<string>0.0."); const int ver = v == std::string::npos ? -2 : std::atoi(plist.c_str() + v + 12);
         expect(build > 0 && build == ver, "kN1cKextBuild equals the Info.plist patch version");
         expect_u("Info.plist is 0.0.670", (uint64_t)ver, 670); expect_u("the plist carries the version twice", count_of(plist, "0.0.670"), 2);
-        expect(nub.find("666u") != std::string::npos && nub.find("658u") == std::string::npos && nub.find("613u") == std::string::npos, "both ops tables carry the build 664");
+        expect(nub.find("666u") != std::string::npos && nub.find("658u") == std::string::npos && nub.find("613u") == std::string::npos, "both ops tables carry the build 666");
     }
     expect(mk.find("src/Navi48MetalNub.cpp") != std::string::npos, "the Makefile builds Navi48MetalNub.cpp");
     // ---- M7 (0.0.670): the boot publish and the boot hold ----

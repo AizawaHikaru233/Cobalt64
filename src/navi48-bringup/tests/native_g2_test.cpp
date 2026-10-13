@@ -551,7 +551,7 @@ static void t11_pins(const std::string &root) {
     const std::string b1 = std::string("pipe+0x2") + "80", b2 = std::string("+0x2") + "82", b3 = std::string("+0x2") + "99";
     for (const std::string *f : { &eng, &pure, &ncl, &hdr }) expect(f->find(b1) == std::string::npos && f->find(b2) == std::string::npos && f->find(b3) == std::string::npos, "no banned pipe offsets");
     expect(count_of(plist, "<string>0.0.670</string>") == 2 && plist.find("0.0.626") == std::string::npos, "Info.plist is 0.0.670, carried twice");
-    expect(hdr.find("constexpr uint32_t kN1cKextBuild = 670;") != std::string::npos, "the native client reports build 666");
+    expect(hdr.find("constexpr uint32_t kN1cKextBuild = 670;") != std::string::npos, "the native client reports build 670");
 }
 
 // ---- T12: the G2 review fixes (0.0.629) -------------------------------------------------------------------------------------------------------------------------

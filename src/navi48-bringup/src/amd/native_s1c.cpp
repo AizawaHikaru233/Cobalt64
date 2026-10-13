@@ -164,11 +164,17 @@ static uint8_t gCliState[kMaxClients];   // n48native::g2::CliState; written und
 static uint32_t gCliAlloc;               // records ever allocated (a diagnostic; the records are never freed)
 static_assert(kMaxClients * sizeof(Session) <= n48native::g2::kClientKernelBudget, "the client table's kernel memory stays inside the pure header's budget");
 // 0.0.669: the VMID POOL. gVmidOwner[h] = the CLIENT index holding pool handle h (VMID 8 + h) or kNoClient (free). gHandleUsable: bit h set = CONTEXT<8+h>
-// carries the native geometry (probed once per handle at the first open; a handle that failed is never handed out - fail closed). gHandlesHeld: how many are
-// held right now (a diagnostic for the stat page). All under gCliLock.
+// carries the native geometry (probed once per handle at the first open; a handle that failed is never handed out - fail closed). All under gCliLock.
 static uint32_t gVmidOwner[kVmidPoolSize];
 static uint32_t gHandleUsable;           // bit h: CONTEXT<8+h> was proved to carry the native geometry; 0 = not probed yet (the first open probes all handles)
-static uint32_t gHandlesHeld;            // how many pool handles are held right now (quarantined ones included): a diagnostic, and the pool's own accounting
+// How many pool handles are held RIGHT NOW, counted from the owner array itself and never from a running total: a steal re-assigns a handle that is
+// already held, so a counter would drift; `handles free` on the stat pages is counted from this same array, and the two must never disagree. A
+// QUARANTINED record that still owns its handle is counted here. Caller holds gCliLock.
+static uint32_t vmid_held_locked(void) {
+    uint32_t n = 0;
+    for (uint32_t h = 0; h < kVmidPoolSize; h++) if (gVmidOwner[h] != kNoClient) n++;
+    return n;
+}
 // The per-boot page-table reserve: blocks taken from vram_alloc for page tables are NEVER returned to it (a user CPU mapping kept
 // after BoFree can therefore never alias a page table); a closing client returns its blocks to this list and the next client reuses them.
 static VRAMAllocation gPt[kArenaReserve];
@@ -757,8 +763,8 @@ static __attribute__((noinline)) uint32_t ctx_prepare(uint32_t h, uint32_t vmid,
     return cntl;
 }
 // ==== 0.0.669: THE VMID POOL (assign / steal / release) and the RECLAIM PASS ==========================================================
-// The pure half is native_g2_pure.h (vmid_pick, reclaim_pick, cli_after_close). Everything here runs under gCliLock (which also owns gVmidOwner / gHandleUsable /
-// gHandlesHeld / gCliState), and the two places that must be atomic against a concurrent Submit - the steal decision and the residency read in ring_submit - take
+// The pure half is native_g2_pure.h (vmid_pick, reclaim_pick, cli_after_close). Everything here runs under gCliLock (which also owns gVmidOwner /
+// gHandleUsable / gCliState), and the two places that must be atomic against a concurrent Submit - the steal decision and the residency read in ring_submit - take
 // gRingLock as well (gCliLock -> gRingLock is the documented order). No GPU wait ever runs under either lock.
 // Probe every pool handle once, at the first open: CONTEXT<8+h> must carry the native geometry before the handle is ever handed out. A handle that fails is kept
 // OUT of gHandleUsable for the rest of the boot (fail closed: it is never assigned), which is exactly what 0.0.627 did per session - except that a failure now
@@ -807,7 +813,6 @@ static uint32_t vmid_assign_locked(Session *s, uint32_t *victimOut) {
     const uint32_t prc = program_root(vmid, s->rootPa);   // the new root AND this VMID's TLB invalidate, in one place
     if (prc != kOk) return prc;                           // the flush did not acknowledge (a hang was latched): the handle is not ours
     gVmidOwner[p.handle] = s->cli;
-    gHandlesHeld++;
     if (p.victim != kNoClient) N1C_LOG("vmid pool: handle %u (VMID %u) STOLEN from client %u (its own work is retired) and given to client %u: it re-acquires at its next Submit", p.handle, vmid, p.victim, s->cli);
     __atomic_store_n(&s->vmid, vmid, __ATOMIC_RELEASE);
     if (victimOut != nullptr) *victimOut = p.victim;
@@ -823,7 +828,6 @@ static uint32_t vmid_release_locked(Session *s) {
     const uint32_t prc = program_root(vm, gPark.pa);
     __atomic_store_n(&s->vmid, 0u, __ATOMIC_RELEASE);
     gVmidOwner[h] = kNoClient;
-    if (gHandlesHeld > 0u) gHandlesHeld--;
     if (g5_on()) { IOLockLock(gRingLock); n48native::g5::since_clear(gG5Since, s->cli); IOLockUnlock(gRingLock); }
     return prc;
 }
@@ -2312,7 +2316,7 @@ IOReturn n1c_g2_stat(uint64_t page, uint64_t *o) {
         for (uint32_t i = 0; i < kMaxClients; i++) if (gCliState[i] == kCliFree) g.freeList++;
         for (uint32_t h = 0; h < kVmidPoolSize; h++) if (gVmidOwner[h] == kNoClient) g.handlesFree++;
         g.records = gCliAlloc;
-        g.handlesHeld = gHandlesHeld;
+        g.handlesHeld = vmid_held_locked();
         IOLockUnlock(gCliLock);
         cli_out(g, o);
         return kIOReturnSuccess;
@@ -2323,7 +2327,7 @@ IOReturn n1c_g2_stat(uint64_t page, uint64_t *o) {
         g.open = __atomic_load_n(&gOpenFlag, __ATOMIC_SEQ_CST);
         for (uint32_t i = 0; i < kMaxClients; i++) if (gCliState[i] == kCliQuarantined) g.quarantined++;
         for (uint32_t h = 0; h < kVmidPoolSize; h++) if (gVmidOwner[h] == kNoClient) g.handlesFree++;
-        g.handlesHeld = gHandlesHeld;
+        g.handlesHeld = vmid_held_locked();
         g.othersVram = gVramOthers; g.othersCap = others_vram_cap(vram_total());
         if (apps_on()) { g.appVisBytes = gVisOthers; g.appVisCapMiB = (uint32_t)(appvis_cap() >> 20); }   // 0.0.641: the visible-pool use of non-WindowServer sessions and its cap
         IOLockUnlock(gCliLock);
