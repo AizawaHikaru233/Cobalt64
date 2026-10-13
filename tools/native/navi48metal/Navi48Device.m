@@ -6556,15 +6556,26 @@ static void n48_census_log(void) {
     return n48g_supports_family((long)family, n48_is_ws() ? 1 : 0) ? YES : NO;   // Apple1..9 (1001..1009), Mac1, MacCatalyst, Metal3, Metal4, unknown -> NO
 }
 // The lowest tier (MTLArgumentBuffersTier1 == 0); the base class's value is unknown, so it is pinned here (build 6, C1 finding B).
-- (NSUInteger)argumentBuffersSupport {   // WindowServer: the base class's answer, exactly as before build 6; applications: Tier1
-    if (n48_is_ws()) {   // the base class's answer, as before build 6 (it is not in our private header, so ask the runtime)
-        Class sc = [MTLIOAccelDevice class];
-        if ([sc instancesRespondToSelector:@selector(argumentBuffersSupport)]) {
-            struct objc_super sup = { self, sc };
-            return ((NSUInteger (*)(struct objc_super *, SEL))objc_msgSendSuper)(&sup, @selector(argumentBuffersSupport));
+- (NSUInteger)argumentBuffersSupport
+{
+    /* build 32：WindowServer 以前拿 Apple 基类 MTLIOAccelDevice 的答案，等级高于本 bundle
+     * 真正实现的等级 ⇒ "声明 != 实现"；走 argument buffer 的客户端拿到无效句柄 ⇒ 采不到 ⇒ 品红
+     * （桌面壁纸阶梯块 + Dock 图标方块）。
+     * 现在：两类客户端都拿 Tier1(0)（= 我们真正实现的等级；"声明与实现对齐"）。
+     * 可逆：/private/tmp/n48m-argbuf-tier1 存在 ⇒ 回到 build 31 行为（仅 WindowServer 走基类答案）。 */
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/private/tmp/n48m-argbuf-tier1"]) {
+        if (n48_is_ws()) {
+            Class sc = [MTLIOAccelDevice class];
+            if ([sc instancesRespondToSelector:@selector(argumentBuffersSupport)]) {
+                struct objc_super sup = { self, sc };
+                N48_ONCE("argumentBuffersSupport -> base class answer for WindowServer "                         "(/private/tmp/n48m-argbuf-tier1 present: build 31 behaviour)");
+                return ((NSUInteger (*)(struct objc_super *, SEL))objc_msgSendSuper)(&sup, @selector(argumentBuffersSupport));
+            }
         }
     }
-    N48_ONCE("argumentBuffersSupport -> Tier1 (0) for this application: argument buffers beyond the basics are not implemented"); return (NSUInteger)N48G_ARGBUF_TIER1; }
+    N48_ONCE("argumentBuffersSupport -> Tier1 (0) for every client (build 32: declared == implemented)");
+    return (NSUInteger)N48G_ARGBUF_TIER1;
+}
 - (NSUInteger)maxBufferLength                { return (NSUInteger)N48_MAX_BUFFER_LENGTH; }
 - (uint64_t)recommendedMaxWorkingSetSize     { return N48_RECOMMENDED_WORKING_SET; }
 - (BOOL)hasUnifiedMemory { return NO; }
