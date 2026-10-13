@@ -305,15 +305,24 @@ static inline int n48x_probe(const char *dir, const char *sha) {
     return plan;
 }
 // Creates <sha>.inflight with O_EXCL (mode 0600) holding the pid. 0 = created, 1 = already exists, -1 = error.
+// BUILD 33 (inproc-failed dump). The cache directory is NOT permanent: on macOS a long-lived process's C directory can be
+// taken away under it. Measured in iconservicesagent on a Navi48 Metal device: the directory
+// the process had itself created (and was still reading hints from 57 ms earlier) was gone a moment later, and EVERY later
+// translation failed with N48X_E_IO "cannot create the crash marker" while the process kept running for another 10 minutes --
+// so every lookup missed and the magenta fallback pipeline stayed for the life of the process. A create that fails with
+// ENOENT therefore re-creates the directory and tries once more before giving up, and errno is left meaningful for the log.
 static inline int n48x_marker_create(const char *dir, const char *sha) {
     char infl[N48X_PATH_MAX];
-    if (!n48x_file_path(infl, sizeof infl, dir, sha, N48X_EXT_INFLIGHT)) return -1;
-    const int fd = open(infl, O_WRONLY | O_CREAT | O_EXCL | O_NOFOLLOW, 0600);
+    if (!n48x_file_path(infl, sizeof infl, dir, sha, N48X_EXT_INFLIGHT)) { errno = ENAMETOOLONG; return -1; }
+    int fd = open(infl, O_WRONLY | O_CREAT | O_EXCL | O_NOFOLLOW, 0600);
+    if (fd < 0 && errno == ENOENT) {
+        if (n48x_mkdir_checked(dir) == 0) fd = open(infl, O_WRONLY | O_CREAT | O_EXCL | O_NOFOLLOW, 0600);
+    }
     if (fd < 0) return errno == EEXIST ? 1 : -1;
     char b[32]; const int n = snprintf(b, sizeof b, "%d\n", (int)getpid());
     const ssize_t w = write(fd, b, (size_t)n);
     const int c = close(fd);
-    if (w != n || c != 0) { (void)unlink(infl); return -1; }
+    if (w != n || c != 0) { errno = (w != n) ? EIO : 0; (void)unlink(infl); return -1; }
     return 0;
 }
 static inline void n48x_marker_remove(const char *dir, const char *sha) {
@@ -507,8 +516,9 @@ static inline int n48x_translate_job_x(const n48x_deps *dp, const char *dir, con
     default: break;
     }
     const int mk = n48x_marker_create(dir, sha);
+    const int mk_errno = errno;   // build 33: reported, so a cache directory that cannot be written is diagnosable from the log alone
     if (mk == 1) { n48x_set_err(err, errn, "another process is translating this shader%s", ""); return N48X_E_SKIP_LIVE; }
-    if (mk != 0) { n48x_set_err(err, errn, "cannot create the crash marker%s", ""); return N48X_E_IO; }
+    if (mk != 0) { char mkw[256]; snprintf(mkw, sizeof mkw, "cannot create the crash marker (build 33: dir %s errno %d)", dir, mk_errno); n48x_set_err(err, errn, "%s", mkw); return N48X_E_IO; }
     N48X_HOOK_AFTER_MARKER();
     char path[N48X_PATH_MAX], failPath[N48X_PATH_MAX], why[512]; why[0] = 0;
     (void)n48x_file_path(failPath, sizeof failPath, dir, sha, N48X_EXT_FAIL);

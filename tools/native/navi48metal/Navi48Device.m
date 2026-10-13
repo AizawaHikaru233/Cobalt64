@@ -2050,7 +2050,6 @@ static NSError *n48_dump_pipeline(MTLRenderPipelineDescriptor *d) {
     return n48_err(100, msg);
 }
 
-
 // ---------------------------------------------------------------------------------------------------------------
 // Metal API gap census fixes (an internal design note). Shared pieces:
 //   N48_ONCE          one log line per call site per process (no-op stubs are called thousands of times a second by the compositor)
@@ -2222,7 +2221,6 @@ N48_RESOURCE_SPI
 - (void)removeAllDebugMarkers {}
 - (IOSurfaceRef)iosurface { return NULL; }
 @end
-
 
 // ---------------------------------------------------------------------------------------------------------------
 // Common helpers for the 10b-10d classes.
@@ -3922,7 +3920,11 @@ static VkShaderModule n48_spv_module(const void *code, size_t bytes, const char 
         NSError *e = e1 ? e1 : e2;
         const BOOL inproc = (e.code == 41 && !nofb && n48x_active()) ? YES : NO;
         if (e.code == 41 && n48_fallback_ok() && !nofb) {
-            if (!inproc) (void)n48_dump_pipeline(d);   // C1: dump FIRST (the daemon translates what it is given), then (applications only) wait up to 3 s for it; bundle 14: not when this process translates in process
+            (void)n48_dump_pipeline(d);   // C1: dump FIRST (the daemon translates what it is given), then (applications only) wait up to 3 s for it.
+            // BUILD 33 (inproc-failed dump): the dump is no longer skipped when this process tried the in-process translation. That attempt can
+            // FAIL while the process keeps running (N48X_E_IO "cannot create the crash marker": the app's cache directory was removed under us),
+            // and while the dump was skipped the AIR was never handed to the daemon, so the FALLBACK below was permanent
+            // (measured: 568 magenta pipelines in 20 min in iconservicesagent and 0 hot-swaps). Now the miss still becomes recoverable.
             if (!inproc && n48g_syncwait_applies(n48_is_ws(), atomic_load(&n48_app_admitted), n48_force_fallback(), n48_test_fb_as_ws())) {
                 NSMutableArray<NSString *> *want = [NSMutableArray array];
                 NSString *sv_ = n48_fn_sha(d.vertexFunction), *sf_ = n48_fn_sha(d.fragmentFunction);
@@ -6096,8 +6098,8 @@ static void n48_census_log(void) {
         // #12 R1: WindowServer (or N48M_FORCE_FALLBACK with N48M_ALLOW) gets a VALID pipeline whose dispatches are no-ops: MPS aborts
         // (MTLReportFailure) on a compute pipeline error, a missing desktop effect is survivable. Same rule as the render FALLBACK.
         NSMutableArray *paths = [NSMutableArray array], *notes = [NSMutableArray array];
-        if (!inproc) n48_dump_function(fn, "kernel", paths, notes);
-        N48LOG("COMPUTE FALLBACK %s (%s); %s: %s", ([fn respondsToSelector:@selector(name)] ? [fn name] : @"?").UTF8String, e.localizedDescription.UTF8String, inproc ? "not dumped (in-process translation did not produce it)" : "AIR dumped", [paths componentsJoinedByString:@"; "].UTF8String);
+        (void)n48_dump_function(fn, "kernel", paths, notes);   // build 33 (inproc-failed dump): also after a failed in-process attempt -- see the render path
+        N48LOG("COMPUTE FALLBACK %s (%s); %s: %s", ([fn respondsToSelector:@selector(name)] ? [fn name] : @"?").UTF8String, e.localizedDescription.UTF8String, inproc ? "AIR dumped after a failed in-process attempt (build 33)" : "AIR dumped", [paths componentsJoinedByString:@"; "].UTF8String);
         return [[N48ComputePipelineState alloc] initPlaceholderWithDevice:self function:fn];
     }
     if (e.code == 41) {
@@ -6227,7 +6229,7 @@ static void n48_census_log(void) {
     if (p) return p;
     if (e.code == 41 && n48x_active()) N48LOG("render pipeline: not in the bundle's spvcache (%s); the in-process translation was already tried for its functions", e.localizedDescription.UTF8String);   // build 16 (P4)
     else N48LOG("pipeline creation failed: %s", e.localizedDescription.UTF8String);
-    NSError *dump = n48x_active() ? e : n48_dump_pipeline(d);   // cache miss: leave the AIR for the host Mac to translate (bundle 14: not when this process translates in process - it already tried)
+    NSError *dump = n48_dump_pipeline(d);   // cache miss: leave the AIR for the host Mac to translate. Build 33 (inproc-failed dump): also when this process translates in process -- that attempt can fail (N48X_E_IO) and the shader would otherwise never reach the daemon.
     if (error) *error = [e.code == 41 ? dump : e copy];
     return nil;
 }
