@@ -22,3 +22,17 @@ src/navi48-bringup/firmware/
 runs/
 *.log
 .DS_Store
+
+# build outputs
+tools/native/mtlprobe/mtlprobe
+tools/native/mtlprobe/mtlprobe-arm64
+tools/native/mtlprobe/mtlprobe-x86_64
+tools/native/mtlprobe/triangle-metal.png
+tools/native/n48nub/n48nub
+tools/pc/navi48test
+tools/native/autotranslate/metal2vulkan
+# the shader side cache is filled at run time (the tree ships an empty directory)
+tools/native/navi48metal/spvcache/
+# caches and editor backups from the reverse-engineering tooling
+tools/native/ioaccel-layout/exports_cache.txt
+*.pre-subagent
