@@ -69,6 +69,19 @@
 #define N48_9D 1
 #endif
 
+// 0.0.667 (stability; discipline 2: EVERY wait bounded, and discipline 1: no wait under a shared lock).
+// ONE bounded fence wait instead of a 30 x 2 s slice loop, with one bound per call kind:
+//   5 s  for the SYNCHRONOUS one-shot helper (texture upload / readback through replaceRegion: / getBytes:): it blocks the CALLING app's
+//        thread, so a long bound here IS a UI stall - the old 60 s cap was exactly that, and on timeout it also leaked the fence.
+//   8 s  for an async command buffer: our bring-up kext has no hardware timeout enforcement yet, so a slow-but-alive frame is likelier
+//        here than on the reference hardware; nothing blocks on it (it runs on _cq), and a timeout now RELEASES instead of leaking.
+#ifndef N48_ONESHOT_WAIT_MS
+#define N48_ONESHOT_WAIT_MS 5000
+#endif
+#ifndef N48_FENCE_WAIT_MS
+#define N48_FENCE_WAIT_MS 8000
+#endif
+
 // Forward declaration, deliberately without ivars.
 @interface MTLIOAccelDevice : NSObject
 - (instancetype)initWithAcceleratorPort:(uint32_t)port;
@@ -1016,10 +1029,17 @@ static BOOL n48_oneshot(NSError **err, void (^rec)(VkCommandBuffer cmd)) {
         pthread_mutex_unlock(&N48R.qlock);
     }
     if (r == VK_SUCCESS) {
-        int slices = 0; r = VK_TIMEOUT;
-        while (r == VK_TIMEOUT && slices++ < 30) r = vkWaitForFences(N48R.dev, 1, &f, VK_TRUE, 2000000000ULL);
+        // 0.0.667: one bounded wait (N48_ONESHOT_WAIT_MS), no 30 x 2 s slices. This helper is SYNCHRONOUS, so the old 60 s cap blocked the
+        // calling app's thread outright; a timeout now fails the call and releases BOTH the fence and the command buffer (see below).
+        r = vkWaitForFences(N48R.dev, 1, &f, VK_TRUE, (uint64_t)N48_ONESHOT_WAIT_MS * 1000000ULL);
+        if (r == VK_TIMEOUT) N48LOG("n48_oneshot: vkWaitForFences TIMEOUT after %d ms (the GPU did not finish; failing the call)", N48_ONESHOT_WAIT_MS);
     }
-    if (r != VK_SUCCESS) { if (err) *err = n48_err(61, [NSString stringWithFormat:@"one-shot submit/wait = %d%s", r, r == VK_ERROR_DEVICE_LOST ? " (DEVICE_LOST)" : r == VK_TIMEOUT ? " (TIMEOUT: HUNG?)" : ""]); return NO; }
+    if (r != VK_SUCCESS) {
+        if (f != VK_NULL_HANDLE) vkDestroyFence(N48R.dev, f, NULL);   // 0.0.667: no leak - the old code left this fence open on every TIMEOUT
+        n48_qlock(); vkFreeCommandBuffers(N48R.dev, N48R.opool, 1, &c); pthread_mutex_unlock(&N48R.qlock);   // and the pool slot went with it
+        if (err) *err = n48_err(61, [NSString stringWithFormat:@"one-shot submit/wait = %d%s", r, r == VK_ERROR_DEVICE_LOST ? " (DEVICE_LOST)" : r == VK_TIMEOUT ? " (TIMEOUT: HUNG?)" : ""]);
+        return NO;
+    }
     vkDestroyFence(N48R.dev, f, NULL);
     n48_qlock(); vkFreeCommandBuffers(N48R.dev, N48R.opool, 1, &c); pthread_mutex_unlock(&N48R.qlock);
     return YES;
@@ -4547,11 +4567,13 @@ N48_DNR(N48CommandQueue)
                     delivered = YES;
                 }
             }
-            while (r == VK_TIMEOUT && slices < 30) {   // 2 s slices, 60 s cap
-                r = vkWaitForFences(N48R.dev, 1, &fence, VK_TRUE, 2000000000ULL); slices++;
-                if (r == VK_TIMEOUT) N48LOG("vkWaitForFences: slice %d timed out", slices);
+            // 0.0.667: ONE bounded wait (N48_FENCE_WAIT_MS), no 30 x 2 s slices. The 60 s cap only delayed the failure, and on timeout it left the
+            // command buffer's pool reference open ("nothing newer is ever reused"). A TIMEOUT now takes the same release path as DEVICE_LOST.
+            if (r == VK_TIMEOUT) {
+                r = vkWaitForFences(N48R.dev, 1, &fence, VK_TRUE, (uint64_t)N48_FENCE_WAIT_MS * 1000000ULL); slices = 1;
+                if (r == VK_TIMEOUT) N48LOG("vkWaitForFences: TIMEOUT after %d ms (the GPU is not finishing this command buffer)", N48_FENCE_WAIT_MS);
             }
-            if (r == VK_SUCCESS || r == VK_ERROR_DEVICE_LOST) [keep n48PoolDone];   // P1: the GPU is finished with (or has lost) everything this command buffer touched; a 60 s TIMEOUT leaves the fence open so nothing newer is ever reused
+            if (r == VK_SUCCESS || r == VK_ERROR_DEVICE_LOST || r == VK_TIMEOUT) [keep n48PoolDone];   // P1: the GPU is finished with (or has lost) everything this command buffer touched; 0.0.667: a TIMEOUT is treated the same way, so the fence / pool slot / command buffer are RELEASED instead of leaked
             if (delivered) { [keep n48DispDone:r]; N48LOG("TEST_TIMEOUT: fence finally = %d after %d slice(s)", r, slices); return; }
             if (r != VK_SUCCESS)
                 werr = n48_err(54, [NSString stringWithFormat:@"vkWaitForFences = %d%s", r, r == VK_ERROR_DEVICE_LOST ? " (DEVICE_LOST)" : r == VK_TIMEOUT ? " (TIMEOUT: HUNG?)" : ""]);
@@ -4571,7 +4593,6 @@ N48_DNR(N48CommandQueue)
     (void)cbs; N48LOG("queue completeCommandBuffers:count:%lu (deferred to the completion thread)", (unsigned long)n);
 }
 @end
-
 
 // 11h.6 IOSurface coherency. Upload at the FIRST use of an IOSurface texture in a command buffer (path b: host buffer -> image; path a needs nothing:
 // the GPU reads the host pages directly), recorded outside any render pass. Write-back at the END of the command buffer for every texture that was
