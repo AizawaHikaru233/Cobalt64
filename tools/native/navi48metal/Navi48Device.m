@@ -5893,6 +5893,56 @@ N48_DNR(N48BlitEncoder)
 - (void)updateFence:(id)f { (void)f; N48_ONCE("blit updateFence: ordered by submission order; ignored"); }
 - (void)waitForFence:(id)f { (void)f; N48_ONCE("blit waitForFence: ordered by submission order; ignored"); }
 N48_ENCODER_NOOPS
+
+/* ============ build 34: the four -optimizeContents* hints and a blit signpost ============
+ * WHY (measured, not guessed). This image implements none of these five selectors, so the send is
+ * dispatched to Apple's *abstract* encoder base class _MTLCommandEncoder, whose implementation ends in
+ * -doesNotRecognizeSelector:. Our override then logs and re-raises, and the client dies:
+ *
+ *   Chained Echoes 1.41 (Unity 2020.3.36f1, Steam 1229240) -- 2026-10-12 04:28:34 / 04:29:11 / 04:29:16
+ *     Navi48Metal: UNRECOGNIZED selector optimizeContentsForGPUAccess: on N48BlitEncoder
+ *     #11 -[_MTLCommandEncoder optimizeContentsForGPUAccess:]   (Metal.framework 0x...104ad015)
+ *     #10 -[N48BlitEncoder doesNotRecognizeSelector:]
+ *     #13 UnityPlayer.dylib  MetalHeap::AliasResources()
+ *     => uncaught NSInvalidArgumentException -> abort(); 3 x .ips (bug_type 309, SIGABRT, "abort() called")
+ *     => the game never got past its first blit encoder (2.4 s of uptime, three attempts).
+ *
+ * WHY THE EXISTING SAFETY NETS CANNOT SEE IT (this is the general lesson, not a one-off):
+ *   - the census asks -class_respondsToSelector:, which answers YES here (the abstract base really does
+ *     implement the selector -- it waits for a concrete subclass to override it). It is therefore not in
+ *     "N48BlitEncoder lacks 8 of 34"; it is an INHERITED raiser, invisible to that question.
+ *   - the build-31 forwarding net installs -methodSignatureForSelector:/-forwardInvocation:, and those run
+ *     ONLY when no class in the chain implements the selector. Here one does, so nothing is forwarded
+ *     (measured: zero "forward: [...]" lines in the whole day, yet 3 raises).
+ *   - the shape was measured directly: of the 88 void protocol
+ *     methods our classes satisfy only by inheritance, 48 raise; 4 of them are these optimize* hints.
+ *
+ * WHY A NO-OP IS THE CORRECT IMPLEMENTATION (not a stub that hides a missing feature):
+ *   - Metal defines both as HINTS about a texture's contents. After -optimizeContentsForGPUAccess: the
+ *     contents may be discarded/decompressed for GPU use; after -optimizeContentsForCPUAccess: for CPU
+ *     reads. Apple documents the contents as undefined afterwards, i.e. a caller that uses these calls
+ *     only promises not to depend on them -- Unity's heap alias path is exactly that.
+ *   - Keeping the contents is the conservative reading: an app that expected undefined data gets VALID
+ *     data instead (never the reverse), and no Vulkan command is required for it.
+ *   - the real reason Apple needs them is lossy/compressed texture storage; this translator stores every
+ *     MTLTexture in an ordinary VkImage (n48_texdesc.h / the N48Fmt table), so there is nothing to
+ *     decompress, compress or flush, and a hint that is a no-op is a hint that is fully satisfied.
+ * =========================================================================================================== */
+- (void)optimizeContentsForGPUAccess:(id)tex {
+    (void)tex; N48_ONCE("blit optimizeContentsForGPUAccess: contents kept (Metal hint; no compressed storage in this translator)");
+}
+- (void)optimizeContentsForGPUAccess:(id)tex slice:(NSUInteger)sl level:(NSUInteger)lv {
+    (void)tex; (void)sl; (void)lv; N48_ONCE("blit optimizeContentsForGPUAccess:slice:level: contents kept (Metal hint)");
+}
+- (void)optimizeContentsForCPUAccess:(id)tex {
+    (void)tex; N48_ONCE("blit optimizeContentsForCPUAccess: contents kept (Metal hint)");
+}
+- (void)optimizeContentsForCPUAccess:(id)tex slice:(NSUInteger)sl level:(NSUInteger)lv {
+    (void)tex; (void)sl; (void)lv; N48_ONCE("blit optimizeContentsForCPUAccess:slice:level: contents kept (Metal hint)");
+}
+/* N48RenderEncoder (build 5429) and N48ComputeEncoder (build 5737) already answer this one; the blit
+ * encoder was the only one of the three that inherited _MTLCommandEncoder's raiser (measured: a send to it CRASHES). Same shape, same no-op. */
+- (void)insertDebugSignpost:(NSString *)s { (void)s; }
 // m11h9: a box-filtered chain, level L-1 -> L with vkCmdBlitImage (linear filter when RADV can filter the format, else nearest) inside one GENERAL-layout image (source and
 // destination are different levels, so the regions never overlap); each blit is ordered after the previous by a full memory barrier.
 - (void)generateMipmapsForTexture:(id)tex {
@@ -5973,6 +6023,95 @@ N48_ENCODER_NOOPS
 // device-local heap 16911433728 B (15.75 GiB); maxStorageBufferRange 4294967295.
 #define N48_MAX_BUFFER_LENGTH        (0x100000000ULL)   /* 4 GiB */
 #define N48_RECOMMENDED_WORKING_SET  (0x300000000ULL)   /* 12 GiB (< 15.75 GiB VRAM) */
+
+
+
+/* ===================== build 31: the forwarding net (the N-card shape) =====================
+ * The N-card driver's forwarding net: a virtual Metal device must NEVER raise
+ * "unrecognized selector" -- it answers a ZERO of the declared type and says so in the log.
+ * Its install line: "forwarding net installed on N classes (was: log-then-abort on 20)".
+ * This image's classes are many but all descend from MTLIOAccelDevice, so the two methods are
+ * installed on every class here whose name starts with N48/Navi48 (objc_getClassList at load).
+ * Signature source: (1) the object's own hierarchy, (2) built from the selector's colon count
+ * (all-object arguments -- exact for the zero-argument getters Metal asks, and safe because
+ * forwardInvocation: NEVER reads an argument, it only writes the return), (3) logged as a guess.
+ * The N-card's "Apple counterpart class" rung is NOT implemented here (deferred).
+ * Behaviour: log each (class, selector) the first 3 times and then every 1000th, write zeros of the
+ * declared return length, warn when the return type is a pointer, and never raise. */
+static NSMutableDictionary *n48_fwd_counts(void)
+{ static NSMutableDictionary *d = nil; if (!d) d = [[NSMutableDictionary alloc] init]; return d; }
+
+static void n48_fwd_log(Class cls, SEL sel, BOOL guessed)
+{
+    NSMutableDictionary *d = n48_fwd_counts();
+    NSString *key = [NSString stringWithFormat:@"%s %s", class_getName(cls), sel_getName(sel)];
+    NSUInteger n = [[d objectForKey:key] unsignedIntegerValue] + 1;
+    [d setObject:@(n) forKey:key];
+    if (n <= 3 || (n % 1000) == 0)
+        N48LOG("forward: [%s %s] call #%lu%s", class_getName(cls), sel_getName(sel), (unsigned long)n,
+               guessed ? " (signature GUESSED from the selector's colon count)" : "");
+}
+
+static NSMethodSignature *n48_fwd_methodSignature(id self, SEL sel)
+{
+    NSMethodSignature *sig = nil;
+    for (Class c = object_getClass(self); c && !sig; c = class_getSuperclass(c)) {
+        Method m = class_getInstanceMethod(c, sel);
+        if (m) { const char *e = method_getTypeEncoding(m); if (e) sig = [NSMethodSignature signatureWithObjCTypes:e]; }
+    }
+    if (!sig) {
+        const char *nm = sel_getName(sel);
+        NSUInteger args = 0;
+        for (const char *p = nm; p && *p; p++) if (*p == ':') args++;
+        char types[24]; NSUInteger i = 0;
+        types[i++] = '@'; types[i++] = ':';
+        for (NSUInteger k = 0; k < args && i < 22; k++) types[i++] = '@';
+        types[i] = 0;
+        sig = [NSMethodSignature signatureWithObjCTypes:types];
+    }
+    return sig;
+}
+
+static void n48_fwd_forward(id self, NSInvocation *inv)
+{
+    NSMethodSignature *sig = [inv methodSignature];
+    const char *rt = [sig methodReturnType];
+    n48_fwd_log(object_getClass(self), [inv selector], NO);
+    NSUInteger len = [sig methodReturnLength];
+    if (len && rt) {
+        char zeros[128];
+        if (len <= sizeof(zeros)) {
+            memset(zeros, 0, sizeof(zeros));
+            if (rt[0] == '^' || (rt[0] == 'r' && rt[1] == '^'))
+                N48LOG("forward: [%s %s] returns a POINTER (%s): zero means NULL; a caller that dereferences it will crash",
+                       class_getName(object_getClass(self)), sel_getName([inv selector]), rt);
+            [inv setReturnValue:zeros];
+        } else {
+            N48LOG("forward: [%s %s] return length %lu is too large to zero -- leaving it undefined",
+                   class_getName(object_getClass(self)), sel_getName([inv selector]), (unsigned long)len);
+        }
+    }
+}
+
+__attribute__((constructor)) static void n48_forward_install(void)
+{
+    int n = objc_getClassList(NULL, 0);
+    if (n <= 0) return;
+    Class *buf = (Class *)malloc(sizeof(Class) * (size_t)n);
+    if (!buf) return;
+    n = objc_getClassList(buf, n);
+    int installed = 0;
+    for (int i = 0; i < n; i++) {
+        const char *nm = class_getName(buf[i]);
+        if (!nm) continue;
+        if (strncmp(nm, "N48", 3) != 0 && strncmp(nm, "Navi48", 6) != 0) continue;
+        class_replaceMethod(buf[i], @selector(methodSignatureForSelector:), (IMP)n48_fwd_methodSignature, "@@:");
+        class_replaceMethod(buf[i], @selector(forwardInvocation:), (IMP)n48_fwd_forward, "v@:@");
+        installed++;
+    }
+    free(buf);
+    N48LOG("forwarding net installed on %d class(es) (build 31: zero return, never raise)", installed);
+}
 
 @implementation Navi48Device
 
@@ -6255,8 +6394,8 @@ static void n48_census_log(void) {
 // Diagnostic: name any selector Metal sends that we (and our superclasses) do not implement, before the
 // standard exception. Seen: -[_MTLDevice initLimits] -> doesNotRecognizeSelector.
 - (void)doesNotRecognizeSelector:(SEL)sel {
-    os_log(OS_LOG_DEFAULT, "Navi48Metal: UNRECOGNIZED selector %{public}s", sel_getName(sel));
-    NSLog(@"Navi48Metal: UNRECOGNIZED selector %s", sel_getName(sel));
+    os_log(OS_LOG_DEFAULT, "Navi48Metal: UNRECOGNIZED selector [%{public}s %{public}s] (build 30: class + selector, so a missing method is attributed to its class)", class_getName([self class]), sel_getName(sel));
+    NSLog(@"Navi48Metal: UNRECOGNIZED selector [%s %s] (build 30: class + selector)", class_getName([self class]), sel_getName(sel));
     [super doesNotRecognizeSelector:sel];
 }
 
