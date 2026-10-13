@@ -40,7 +40,9 @@ IOReturn IOAccelNavi48NativeClient::create(Navi48Bringup *owner, IOService *atta
 	uc->owner = owner;
 	uc->route = route;
 	// The gate, exclusivity and the fresh tree. Nothing has been attached yet, so a refusal is a plain release.
-	// 0.0.627 (G2): the open returns this client's session (slot, id); the WindowServer note is set by the open itself (`hangtest` refuses by name while one is open).
+	// 0.0.627 (G2): the open returns this client's session reference. 0.0.669: `slot` is the CLIENT TABLE index and the VMID is a pool handle assigned inside
+	// the open (or at the first Submit) - the two words, their widths and their use here are unchanged, so the N48N ABI does not move. The WindowServer note is set
+	// by the open itself (`hangtest` refuses by name while one is open).
 	amdgpu::N1cRef ref { 0u, 0u };
 	const IOReturn rc = amdgpu::n1c_open(*owner->bringupContext(), uc->wsSession, &ref);
 	if (rc != kIOReturnSuccess) { uc->release(); return rc; }
