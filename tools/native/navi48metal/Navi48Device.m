@@ -6423,7 +6423,125 @@ static void n48_census_log(void) {
 // _MTLDevice -name composes vendorName/familyName/productName, skipping empty parts, joined by " "
 // (SUSPECTED from -[_MTLDevice name] at 0x7ff80f49a2f6; fallback string "Unnamed_GPU") -> "AMD Radeon RX 9070 XT".
 - (NSString *)vendorName  { return @"AMD"; }
+#define N48_ARCH_CPUTYPE 0x4e343830   /* "N480": artificial, never 0 (0 could read as a wildcard), outside every real architecture range */
+#ifndef N48_ARCH_SUBTYPE
+#define N48_ARCH_SUBTYPE 0x4e343831   /* "N481": same artificial family as cpuType, non-zero, outside every real subtype range */
+#endif
 - (NSString *)familyName  { return @"Radeon"; }
+
+/* build 26: Metal reads the architecture answer's cpuType while it matches a prebuilt binary archive
+ * (Core Image's CI kernel library). The value is deliberately artificial: the goal is the SAFE
+ * fallback (no prebuilt slice matches, so Core Image compiles from source at runtime), never a match. */
+
+/* build 27: CoreDisplay asks the device for -subType while it creates the display
+ * for a CGX device:
+ *   CoreDisplay_CreateDisplayForCGXDevice <- WS::Displays::CoreDisplayManager::initialize()
+ *   reason: '-[Navi48Device subType]: unrecognized selector sent to instance' -> uncaught NSException
+ *   -> terminate -> WindowServer abort. (The pipe takeover only restarts WindowServer; it is not the cause.)
+ * cpuType/subType are the Mach-O (cpu_type_t, cpu_subtype_t) pair Metal uses to identify a binary-archive
+ * slice, so they are implemented as ONE artificial family: never 0 (0 can read as a wildcard), outside every
+ * real type/subtype range, so no prebuilt Apple slice can match -- the safe fallback is the goal, not a match. */
+
+
+/* build 28: driverVersion is the getter the icon path was still missing:
+ *   Navi48Metal: UNRECOGNIZED selector driverVersion      (Spotlight / iconservicesagent, ~46 per 5 min)
+ * so the icon path asks the DEVICE for driverVersion and the raised exception fails that icon.
+ * TYPE EVIDENCE (build 29, authoritative -- read from the real archive RenderBox itself loads):
+ *   /System/Library/PrivateFrameworks/RenderBox.framework/Versions/A/Resources/archive.metallib
+ *   file(1): "Mach-O universal binary with 18 architectures: [applegpu] [applegpu_g15g] [applegpu_g13g] ..."
+ *            "(for architecture cputype (16777235) cpusubtype (83))"  16777235 = 0x01000013
+ *   => the archive's slices are keyed by the INTEGER pair (cputype, cpusubtype). MTLLoader builds exactly that
+ *      slice ID, which is why it asks the device for cpuType/subType -- and driverVersion/versionCombined are
+ *      numbered fields of the same key, hence integers. (Byte evidence: head -c 32 shows the fat header magic
+ *      ca fe ba be with 0x01000013 as the first cputype.) Earlier supporting reasons:
+ *   (1) the two members of the same MTLLoader call, legacyDriverVersion/airntDriverVersion, are slice KEYS;
+ *   (2) the same private protocol family (cpuType/subType) is integer-typed;
+ *   (3) Mach-O slice keys are integers.
+ * So it is implemented as the WIDEST integer (a narrow caller reads the low bits, a wide caller the whole
+ * value), with the artificial non-zero value "N482" and the same safe-fallback intent as cpuType/subType.
+ * REVERSIBLE: touch /private/tmp/n48m-dv-raise -> this method raises doesNotRecognizeSelector: instead,
+ * i.e. exactly the v27 behaviour, so a wrong-type answer can be taken back with one file, not a reinstall. */
+#ifndef N48_DRIVERVERSION
+#define N48_DRIVERVERSION 0x4e343832ULL   /* "N482": artificial, never 0, outside every real driver-version range */
+#endif
+
+#ifndef N48_VERSIONCOMBINED
+#define N48_VERSIONCOMBINED 0x4e343833ULL   /* "N483": same artificial family, never 0, outside every real range */
+#endif
+/* build 29: same slice-key family as driverVersion (the log named versionCombined 46 times). Integer for the same
+ * reason (see the driverVersion comment: the archive's slices are keyed by integer pairs), answered with the same
+ * artificial value so no prebuilt Apple slice can match -- the SAFE fallback, never a match. Reversible with the
+ * SAME switch as driverVersion: /private/tmp/n48m-dv-raise -> raise doesNotRecognizeSelector: (build 27 behaviour). */
+
+/* build 23 (hang fix #1): Metal's MTLLoader asks the DEVICE for its architecture while it
+ * deserializes a PREBUILT BINARY ARCHIVE -- Core Image's CI kernel library, via RenderBox
+ * (RB::FunctionLibrary), i.e. every icon the system draws. Without it Apple asserts:
+ *   +[MTLLoader sliceIDForDevice:legacyDriverVersion:airntDriverVersion:] line 692
+ *   failed assertion `Target device architecture is nil'
+ * and the client (iconservicesagent) aborts -> crash loop -> throttled -> every UI that needs
+ * an icon stalls for tens of seconds.
+ * NOTE: legacyDriverVersion/airntDriverVersion are ARGUMENTS of that MTLLoader method (they come
+ * from the archive's own slice header), so the architecture string is the ONLY thing read from
+ * the device here -- returning non-nil is what stops the assert.
+ * Consequence of a value no slice matches: Core Image compiles its kernels from source at
+ * runtime instead of loading them from the archive. Slower first use, same result: our stack has
+ * been translating shaders all along, and the render passes logged right before the assert show
+ * the Core Image path already working through us.
+ * The value is a single knob (N48_DEVICE_ARCHITECTURE) and is logged once, so the exact string
+ * Apple expects can be pinned later without another code change. */
+#ifndef N48_DEVICE_ARCHITECTURE
+/* build 25: build 24 returned an NSString and Metal sent -cpuType to it:
+ *   *** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason:
+ *   '-[__NSCFConstantString cpuType]: unrecognized selector sent to instance'  -> SIGSEGV ->
+ *   iconservicesagent crash loop -> no UI content. So the answer to -targetDeviceArchitecture is
+ * now a tiny descriptor object that CANNOT raise on any selector:
+ *   - -cpuType is implemented explicitly (a deliberately artificial value: never 0, which a
+ *     loader could read as "any", and outside every real architecture range, so no prebuilt
+ *     slice can match -- we want the safe fallback, not a match);
+ *   - -respondsToSelector: says YES for anything (so Metal never takes the "not implemented"
+ *     path itself);
+ *   - -methodSignatureForSelector: builds a signature from the selector's colon count (all
+ *     arguments treated as objects; exact for the zero-argument getters MetaL actually asks);
+ *   - -forwardInvocation: logs each selector ONCE (this is how Apple's real expectations become
+ *     visible in a single boot) and returns a zeroed value of the declared return type -- it
+ *     never calls through. */
+
+
+/* build 24: build 23's value ("applegpu_gfx1201" -- an Apple prefix bolted onto AMD's RDNA4
+ * codename) is the worst possible choice: if MTLLoader's slice match is loose, it is the value
+ * most likely to ACCEPT a slice built for a real Apple GPU, which is what took the console down
+ * (WindowServer ran foreign kernels). The value is now plainly artificial, and -- because a
+ * non-matching outcome could NOT be proven from the cache -- the whole answer is now REVERSIBLE
+ * WITHOUT reinstalling this bundle:
+ *     touch /private/tmp/n48m-arch-off   -> return nil = build 22 behaviour = the known
+ *     boot-safe state (MTLLoader asserts, only the client aborts: the original icon bug).
+ * So the boot path can always be recovered by one file, not by swapping the bundle. */
+#endif
+- (id)targetDeviceArchitecture
+{
+    static id arch = nil; static BOOL tried = NO, logged = NO;
+    /* build 30 behaviour on demand: /private/tmp/n48m-arch-self -> return self (the known healthy
+     * state: WS crashes 0, desktop composited). */
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/private/tmp/n48m-arch-self"]) {
+        if (!logged) { logged = YES; N48LOG("device: targetDeviceArchitecture -> self (/private/tmp/n48m-arch-self present: build 30 behaviour)"); }
+        return self;
+    }
+    if (!tried) {
+        tried = YES;
+        Class c = NSClassFromString(@"MTLTargetDeviceArchitecture");
+        if (!c) {
+            N48LOG("device: targetDeviceArchitecture -> nil (MTLTargetDeviceArchitecture does not exist on this system; keeping the previous behaviour)");
+            return nil;
+        }
+        arch = [[c alloc] init];
+        SEL sc = NSSelectorFromString(@"setCpuType:"), ss = NSSelectorFromString(@"setSubType:");
+        if ([arch respondsToSelector:sc]) ((void (*)(id, SEL, unsigned int))objc_msgSend)(arch, sc, (unsigned int)N48_ARCH_CPUTYPE);
+        if ([arch respondsToSelector:ss]) ((void (*)(id, SEL, unsigned int))objc_msgSend)(arch, ss, (unsigned int)N48_ARCH_SUBTYPE);
+        N48LOG("device: targetDeviceArchitecture -> MTLTargetDeviceArchitecture(cpuType %u, subType %u) (build 31: the getters are asked of THAT object, as the N-card driver documents)",
+               (unsigned)N48_ARCH_CPUTYPE, (unsigned)N48_ARCH_SUBTYPE);
+    }
+    return arch;
+}
 - (NSString *)productName { return @"RX 9070 XT"; }
 
 // featureProfile: -[AppleParavirtDevice featureProfile] (pvm.x86 0xacc3) is `mov eax,0x2710; ret` = 10000 (CONFIRMED).
