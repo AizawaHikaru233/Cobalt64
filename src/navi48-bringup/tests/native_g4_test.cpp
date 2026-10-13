@@ -6,8 +6,8 @@
 //   (run from the repo root; the argument is the repo root the source pins read from; tests/native_g4_plant.sh plants breaks in the real code and demands that this suite FAILS on each)
 // Covers:
 //   T1  the switches: navi48-apps latch; the role exists only with BOTH latches;
-//   T2  the open policy over the WHOLE input space (admin x uid x ws-arg x already-open x apps x allow-list): with the switches OFF the verdict is open_decision's, bit for bit; an
-//       administrator and uid 88 are never touched; a system uid (< 501) is never an APP; an ordinary user is an APP only on the list; every reason has its own text;
+//   T2  the open policy over the WHOLE input space (admin x uid x ws-arg x already-open x apps x allow-list): an administrator and uid 88 are never touched (uid 88 keeps the WindowServer
+//       rule alone); 0.0.665 DEFAULT-ALLOW admits EVERY other caller as an APP whatever the switches and the allow-list state, so kReasonAppNotAllowed is unreachable; every reason has its own text;
 //   T3  the selector sets: an APP reaches exactly 0, 1, 3..8 and 21 (never ReadRegs 2, never scanout 9..14, never 15..20, never an unknown number), a subset of WindowServer's set;
 //   T4  the allow-list: add / remove / list, 32 entries, duplicates, a full list, the empty list at boot, the verb's argument space, the name key (16 characters, never 0), a threaded add;
 //   T5  the budget report in QueryInfo: nothing OFF or for WindowServer, 25 % cap and the available bytes for the others, the APP flag, the lo / hi words;
@@ -68,7 +68,8 @@ static void t1_switch() {
            "T1: only navi48-apps=1 latches ON");
     expect(g4::latch_is_on(g4::kLatchOn) && !g4::latch_is_on(g4::kLatchOff) && !g4::latch_is_on(g4::kLatchUnset), "T1: Unset reads as OFF");
     expect(g4::apps_enabled(true, true) && !g4::apps_enabled(true, false) && !g4::apps_enabled(false, true) && !g4::apps_enabled(false, false), "T1: the role needs navi48-apps AND navi48-multisession");
-    expect(g4::action_admitted(true, 104) && !g4::action_admitted(false, 104) && !g4::action_admitted(true, 103) && !g4::action_admitted(true, 105) && !g4::action_admitted(true, 0), "T1: action 104 exists only with the role enabled");
+    expect(g4::action_admitted(true, 104) && !g4::action_admitted(true, 103) && !g4::action_admitted(true, 105) && !g4::action_admitted(true, 0), "T1: the verb is 104 and nothing else");
+    expect(g4::action_admitted(false, 104), "T1 (0.0.665 default-allow): verb 104 is admitted with the role OFF too - the list it maintains is not consulted for admission any more");
     expect(g4::kActAppAllow == 104u && g4::is_g4_action(104) && !g4::is_g4_action(103) && !g4::is_g4_action(105), "T1: the verb is 104");
 }
 
@@ -76,25 +77,26 @@ static void t1_switch() {
 static void t2_open_policy() {
     using namespace policy;
     static const uint32_t uids[] = { 0, 1, 88, 89, 200, 499, 500, 501, 502, 1000, 65534, 0xFFFFFFFFu };
-    uint64_t nOff = 0, nApp = 0, nNotAllowed = 0, nSame = 0;
+    uint64_t nStrictSame = 0, nApp = 0, nOffSwitchesApp = 0, nSame = 0;   // nSame: verdicts app_refine left untouched (admin, uid 88)
     for (int admin = 0; admin <= 1; admin++) for (uint32_t uid : uids) for (int ws = 0; ws <= 1; ws++) for (int open = 0; open <= 1; open++)
     for (int apps = 0; apps <= 1; apps++) for (int allow = 0; allow <= 1; allow++) {
         const OpenDecision base = open_decision(admin != 0, uid, ws != 0, open != 0);
         const OpenDecision d = app_refine(base, uid, apps != 0, allow != 0);
-        if (!apps) { nOff++; expect(d.admit == base.admit && d.reason == base.reason, "T2: with the switches OFF the verdict is open_decision's, bit for bit (every input, either allow-list state)"); }
         if (admin) expect(d.admit && d.reason == kReasonAdmin, "T2: an administrator is admitted as an administrator, whatever the switches");
-        if (!admin && uid == 88) expect(d.admit == base.admit && d.reason == base.reason, "T2: uid 88 is decided by the WindowServer rule alone");
-        if (!admin && uid < kAppMinUid) expect(d.admit == base.admit && d.reason == base.reason && d.reason != kReasonApp, "T2: a system uid (< 501) is never an APP");
-        if (!admin && uid >= kAppMinUid && apps) {
-            if (allow) { nApp++; expect(d.admit && d.reason == kReasonApp, "T2: uid >= 501, switches ON, on the allow-list: admitted as an APP"); }
-            else { nNotAllowed++; expect(!d.admit && d.reason == kReasonAppNotAllowed, "T2: uid >= 501, switches ON, NOT on the allow-list: refused with its own reason"); }
+        if (!admin && uid == 88) { nStrictSame++; expect(d.admit == base.admit && d.reason == base.reason, "T2: uid 88 is decided by the WindowServer rule alone"); }
+        // 0.0.665 (DEFAULT-ALLOW): every OTHER non-administrator caller is admitted as an APP - system uids, ordinary users,
+        // with or without the boot-args, on or off the allow-list. The narrow APP selector set is what keeps it safe.
+        if (!admin && uid != 88) {
+            nApp++;
+            expect(d.admit && d.reason == kReasonApp, "T2 (0.0.665 default-allow): non-admin, non-uid-88: admitted as an APP whatever the switches and the allow-list state");
+            if (!apps) nOffSwitchesApp++;
+            expect(d.reason != kReasonAppNotAllowed, "T2 (0.0.665): the allow-list refusal reason is unreachable - the list is not consulted");
         }
-        if (!admin && uid >= kAppMinUid && !apps) expect(!d.admit && d.reason == kReasonNotPrivileged, "T2: uid >= 501 with the switches OFF: today's NotPrivileged");
         if (d.reason == base.reason && d.admit == base.admit) nSame++;
         expect(d.reason < kReasonCount && open_reason_text(d.reason) != nullptr && std::strcmp(open_reason_text(d.reason), "?") != 0, "T2: every reason has a text");
         expect(d.admit == (d.reason == kReasonAdmin || d.reason == kReasonWindowServer || d.reason == kReasonApp), "T2: admit is true exactly for the three admitting reasons");
     }
-    expect(nOff > 0 && nApp > 0 && nNotAllowed > 0 && nSame > 0, "T2: every branch of the matrix was reached");
+    expect(nStrictSame > 0 && nApp > 0 && nOffSwitchesApp > 0 && nSame > 0, "T2: every branch of the matrix was reached");
     for (uint32_t a = 0; a < kReasonCount; a++) for (uint32_t b = a + 1; b < kReasonCount; b++)
         expect(std::strcmp(open_reason_text((OpenReason)a), open_reason_text((OpenReason)b)) != 0, "T2: reason texts are distinct");
     expect_u("T2: seven reasons", kReasonCount, 7);
@@ -143,7 +145,7 @@ static void t4_allowlist() {
         const bool legal = op >= 1 && op <= 3;
         expect(args_ok(104, ((uint64_t)op << 60) | 1ull) == legal, "T4: only operations 1..3 exist");
     }
-    expect(native_exempt(true, 104, n48a_arg(N48A_OP_ADD, 9)) && !native_exempt(false, 104, n48a_arg(N48A_OP_ADD, 9)) && !native_exempt(true, 104, 0ull), "T4: the verb's exemption needs the role AND a legal argument");
+    expect(native_exempt(true, 104, n48a_arg(N48A_OP_ADD, 9)) && native_exempt(false, 104, n48a_arg(N48A_OP_ADD, 9)) && !native_exempt(true, 104, 0ull), "T4 (0.0.665 default-allow): the verb's exemption needs a legal argument only - the role is no longer consulted");
     // OFF: nothing happens
     expect_u("T4: role disabled: the verb reports OFF", verb_run(false, list, n48a_arg(N48A_OP_ADD, 7), o), kAllowOff);
     expect_u("T4: ... and changed nothing", al_count(list), 0);
@@ -687,15 +689,16 @@ static void t13_strikes(const std::string &root) {
     expect(strike_add(f, 0u) == kStrikeLimit && strike_count(f, 0u) == 0u, "T13: key 0 is never a name");
     { StrikeTab m {}; std::vector<std::thread> th; for (int i = 0; i < 4; i++) th.emplace_back([&] { for (int j = 0; j < 100; j++) (void)strike_add(m, a); }); for (auto &x : th) x.join();
       expect_u("T13: concurrent strikes for one name are all counted, in one slot", strike_count(m, a), 400); uint32_t used = 0; for (uint32_t i = 0; i < kStrikeSlots; i++) if (m.key[i]) used++; expect_u("T13: ... in exactly one slot", used, 1); }
-    // reachability through the real open decision: listed name, three recoveries blamed on it, then its open is refused with kReasonAppNotAllowed
+    // reachability through the real open decision: three recoveries blamed on a name no longer refuse its open (0.0.665: the list is not
+    // consulted for admission); the strike record stays truthful and kReasonAppNotAllowed is unreachable
     { using namespace policy; StrikeTab s {}; const OpenDecision base = open_decision(false, 501, false, false);
       auto decide = [&]() { return app_refine(base, 501, true, app_admit(true, strike_count(s, a))); };
       expect(decide().admit && decide().reason == kReasonApp, "T13: before any strike a listed name opens as an APP");
       (void)strike_add(s, a); (void)strike_add(s, a); expect(decide().admit, "T13: ... after 2 strikes still");
-      (void)strike_add(s, a); expect(!decide().admit && decide().reason == kReasonAppNotAllowed, "T13: ... after 3: refused with kReasonAppNotAllowed");
+      (void)strike_add(s, a); expect(decide().admit && decide().reason == kReasonApp, "T13 (0.0.665): ... after 3 strikes STILL admitted - strikes are a record now, not an admission gate");
       expect(g2::kMaxAutoRecoveries == kStrikeLimit, "T13: three strikes is the whole per-boot recovery budget"); }
     // the verb: strikes op
-    expect(args_ok(104, n48a_arg(N48A_OP_STRIKES, 0)) && !args_ok(104, n48a_arg(N48A_OP_STRIKES, 1)) && native_exempt(true, 104, n48a_arg(N48A_OP_STRIKES, 0)) && !native_exempt(false, 104, n48a_arg(N48A_OP_STRIKES, 0)), "T13: appallow strikes is a verb argument (payload 0), only with the role on");
+    expect(args_ok(104, n48a_arg(N48A_OP_STRIKES, 0)) && !args_ok(104, n48a_arg(N48A_OP_STRIKES, 1)) && native_exempt(true, 104, n48a_arg(N48A_OP_STRIKES, 0)) && native_exempt(false, 104, n48a_arg(N48A_OP_STRIKES, 0)), "T13 (0.0.665): appallow strikes is a verb argument (payload 0) with the role on or off");
     { uint64_t l[kMaxEntries] = { 0 }, o[kOutN]; StrikeTab s {}; (void)strike_add(s, a); (void)strike_add(s, a); (void)strike_add(s, b);
       expect(verb_run(true, l, n48a_arg(N48A_OP_STRIKES, 0), o, &s) == kAllowOk, "T13: strikes: ok");
       expect(o[2] == N48A_OP_STRIKES && o[4] == a && o[5] == 2 && o[6] == b && o[7] == 1 && o[8] == 0 && o[9] == 0 && o[12] == kStrikeLimit && o[3] == kMaxEntries, "T13: strikes: o[4 + 2i] / o[5 + 2i] = key / count of table slot i, o[12] = the limit");

@@ -87,7 +87,7 @@ bool IOAccelNavi48NativeClient::initWithTask(task_t owningTask, void *securityID
 		onAllow = amdgpu::n1c_app_allowed(comm, &struckOut);   // 0.0.641: also false for a listed name with 3 strikes (struckOut)
 		appKey = n48a_comm_key(comm);
 		static volatile UInt32 gAppOpenLogged = 0;   // the first 64 lines: every Metal-enumerating process probes the bundle's gate once, so a refusal must not flood the log
-		if (gAppOpenLogged < 64u && OSIncrementAtomic((volatile SInt32 *)&gAppOpenLogged) < 64) NCLOG("app open: uid %u process \"%s\" key %#llx: %s", uid, comm, (unsigned long long)n48a_comm_key(comm), onAllow ? "on the allow-list" : struckOut ? "REFUSED: 3 strikes (automatic recoveries blamed on this name this boot)" : "NOT on the allow-list (add it with: navi48test accel appallow add <name>)");
+		if (gAppOpenLogged < 64u && OSIncrementAtomic((volatile SInt32 *)&gAppOpenLogged) < 64) NCLOG("app open: uid %u process \"%s\" key %#llx: %s", uid, comm, (unsigned long long)n48a_comm_key(comm), onAllow ? "on the allow-list" : struckOut ? "REFUSED: 3 strikes (automatic recoveries blamed on this name this boot)" : "not on the allow-list (informative only since 0.0.665: the list is NOT consulted for admission)");
 	}
 	const n48native::policy::OpenDecision d = n48native::policy::app_refine(
 	    n48native::policy::open_decision(admin, uid, n48native::policy::latch_is_on(gMetalWsLatch),
