@@ -1,0 +1,136 @@
+// n48_airidx.h - bundle 36 (P2): the metallib CONTAINER INDEX. Pure C (no Foundation, no Metal): host test test-airidx.c compiles this header and
+// runs the real scanner over the system's own .metallib files.
+//
+// WHY. Until bundle 35 the plugin only ever saw a shader through -[MTLFunction bitcodeData], which Apple hands out per function object, and only at
+// pipeline creation. Everything else -- the AIR dump to /tmp/n48m, the root daemon, the side directory, the bounded 3 s wait -- existed to cope with
+// the two things that costs: the translation happens LATE (the pipeline wants an answer NOW) and it can only happen for a function Apple is willing to
+// hand over. The N-card reference driver does the opposite: it takes the whole metallib CONTAINER at library load, finds every AIR blob in it by
+// magic, and reads each entry point's name and stage out of the module itself (NVMTLLibraryLoad.m:743-812, nvmtl_index_metallib_uncached). No function
+// object, no bitcodeData, no dump, no daemon.
+//
+// WHAT A BLOB IS (measured on this machine, see the deploy log step 65). The AIR wrapper is
+//     magic 'DE C0 17 0B' (uint32 0x0B17C0DE) | version | payloadOffset | payloadSize | ... | payload
+// with payloadOffset 20 and payloadSize the embedded LLVM bitcode's length ('BC C0 DE' = uint32 0xDEC04342 at payloadOffset). The blob occupies
+//     slot = align16(payloadOffset + payloadSize)
+// bytes from the magic, ZERO PADDED to that boundary, and THAT slice -- padding included -- is exactly what -[MTLFunction bitcodeData] returns:
+// sha256 of the slice equals the file name of the matching Resources/spvcache/<sha>.spv for 200 of the 200 keys that the system's own metallibs
+// contain (QuartzCore, CoreDisplay, SkyLight, MPSImage). So the container gives us the same bytes, the same sha and the same cache keys Apple's
+// private selector would have given us -- without asking Apple for anything.
+//
+// WHAT AN ENTRY POINT IS. An AIR module names its entry point in named metadata: !air.vertex / !air.fragment / !air.kernel / !air.mesh / !air.object
+// point at a node whose first operand is the entry function. n48a_entry_of below reads it the way the reference driver does (NVMTLLibraryLoad.m:510-543),
+// from the LLVM text the OS's own LLVM prints.
+#ifndef N48_AIRIDX_H
+#define N48_AIRIDX_H
+
+#include <stdint.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <CommonCrypto/CommonDigest.h>
+
+#define N48A_MAGIC_LEN   4u
+#define N48A_MAX_BLOB    (64u * 1024u * 1024u)   // a single blob above this is not an AIR module (the largest seen in the system: 45 KiB)
+#define N48A_MAX_PAYOFF  4096u                   // the wrapper's payload offset is 20 everywhere; anything else is not this format
+#define N48A_STAGE_MAX   16u
+#define N48A_NAME_MAX    256u
+
+// One AIR blob of one container. `off` is where the wrapper magic sits, `slot` the whole blob (padding included).
+typedef struct {
+    size_t off, slot;
+    uint32_t ver, payloadOff, payloadSize;
+    char sha[65];               // sha256 of container[off .. off+slot) == sha256(-[MTLFunction bitcodeData])
+} n48a_blob;
+
+static inline size_t n48a_align16(size_t n) { return (n + 15u) & ~(size_t)15u; }
+
+static inline void n48a_sha256_hex(const uint8_t *p, size_t n, char out[65]) {
+    uint8_t d[CC_SHA256_DIGEST_LENGTH];
+    CC_SHA256(p, (CC_LONG)n, d);
+    for (size_t i = 0; i < sizeof d; i++) snprintf(out + 2 * i, 3, "%02x", d[i]);
+    out[64] = 0;
+}
+
+// Walks the whole container and records every AIR blob. Returns the number of blobs FOUND (which may be larger than `max`: the walk does not stop at
+// the caller's array, so a truncated index is visible in the count). Only blobs that pass the structural checks are recorded: the magic, a payload
+// offset inside the wrapper, a payload size within the caps, and the slot inside the container.
+static inline size_t n48a_scan(const uint8_t *b, size_t n, n48a_blob *out, size_t max) {
+    size_t found = 0;
+    if (!b) return 0;
+    for (size_t i = 0; i + 20 <= n; i++) {
+        if (!(b[i] == 0xde && b[i+1] == 0xc0 && b[i+2] == 0x17 && b[i+3] == 0x0b)) continue;
+        uint32_t ver = 0, off = 0, size = 0;
+        memcpy(&ver, b + i + 4, 4);
+        memcpy(&off, b + i + 8, 4);
+        memcpy(&size, b + i + 12, 4);
+        if (off < 16u || off > N48A_MAX_PAYOFF || size < 4u || size > N48A_MAX_BLOB) continue;   // not this format
+        const size_t slot = n48a_align16((size_t)off + size);
+        if (i + slot > n) continue;                                                              // truncated container
+        if (out && found < max) {
+            n48a_blob *r = &out[found];
+            r->off = i; r->slot = slot; r->ver = ver; r->payloadOff = off; r->payloadSize = size;
+            n48a_sha256_hex(b + i, slot, r->sha);
+        }
+        found++;
+        i += slot - 1;   // blobs are contiguous: the next one starts after the padding
+    }
+    return found;
+}
+
+// ---- the entry point of one module, read out of its LLVM text ----
+// "!air.<stage> = !{!N}" names the metadata node; "\n!N = !{ptr @entry, ...}" holds the entry function's name. Tolerant of the pointer spelling
+// (LLVM 15 prints `%struct._sampler_t addrspace(2)* @entry`, LLVM 17+ prints `ptr @entry`) because only the first '@' before the ',' matters.
+static inline int n48a_entry_of(const char *ll, size_t n, char *name, size_t nameN, char *stage, size_t stageN) {
+    static const char *const stages[] = { "vertex", "fragment", "kernel", "mesh", "object" };
+    if (!ll || !n || !name || nameN < 2) return 0;
+    for (size_t s = 0; s < sizeof stages / sizeof stages[0]; s++) {
+        char needle[48];
+        const int nl = snprintf(needle, sizeof needle, "!air.%s = !{!", stages[s]);
+        if (nl <= 0) continue;
+        const char *k = NULL;
+        for (size_t i = 0; i + (size_t)nl <= n; i++) if (memcmp(ll + i, needle, (size_t)nl) == 0) { k = ll + i; break; }
+        if (!k) continue;
+        // the node reference runs to the first ',' or '}' after the needle
+        const char *p = k + nl, *end = ll + n;
+        const char *q = p;
+        while (q < end && *q != ',' && *q != '}' && *q != '\n') q++;
+        if (q <= p || (size_t)(q - p) >= 24u) continue;
+        char node[32];
+        const size_t nn = (size_t)(q - p);
+        memcpy(node, p, nn); node[nn] = 0;
+        // "\n!<node> = !{" -- the node reference inside the !air.<stage> tuple is written WITH its '!' ("!{!14}"), the definition carries it too
+        char decl[48];
+        const int dl = snprintf(decl, sizeof decl, "\n!%s = !{", node);
+        if (dl <= 0) continue;
+        const char *d = NULL;
+        for (size_t i = 0; i + (size_t)dl <= n; i++) if (memcmp(ll + i, decl, (size_t)dl) == 0) { d = ll + i + (size_t)dl; break; }
+        if (!d) continue;
+        const char *at = NULL;
+        for (const char *r = d; r < end && *r != '\n'; r++) if (*r == '@') { at = r; break; }
+        if (!at) continue;
+        const char *e = at + 1;
+        while (e < end && *e != ',' && *e != '}' && *e != '\n') e++;
+        size_t len = (size_t)(e - (at + 1));
+        const char *nm = at + 1;
+        if (len >= 2 && nm[0] == '"' && nm[len - 1] == '"') { nm++; len -= 2; }   // a quoted symbol (LLVM escapes unusual names)
+        if (!len || len >= nameN) continue;
+        memcpy(name, nm, len); name[len] = 0;
+        if (stage && stageN) snprintf(stage, stageN, "%s", stages[s]);
+        return 1;
+    }
+    return 0;
+}
+
+// The MTLFunctionType of a stage string (MTLFunctionType: Vertex 1, Fragment 2, Kernel 3, Visible 4, Intersection 5, Mesh 6, Object 7); 0 = unknown.
+static inline int n48a_stage_type(const char *stage) {
+    if (!stage) return 0;
+    if (!strcmp(stage, "vertex")) return 1;
+    if (!strcmp(stage, "fragment")) return 2;
+    if (!strcmp(stage, "kernel")) return 3;
+    if (!strcmp(stage, "mesh")) return 6;
+    if (!strcmp(stage, "object")) return 7;
+    return 0;
+}
+
+#endif /* N48_AIRIDX_H */
